@@ -68,12 +68,15 @@ class UsuarioController extends Controller
         //realizamos la paginacion
         $users=$users->paginate(10);
         $link = "usuarios";
+        $count = user::where('tipo','=','semanal')->count();
 
-        return view('admin.usuario.index',compact('link','users','perfils'));
+        return view('admin.usuario.index',compact('link','users','perfils','count'));
         
 
     }
 
+
+    
 
     public function create()
     {

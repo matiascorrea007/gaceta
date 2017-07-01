@@ -22,7 +22,7 @@
                             </a>
                         </li>
 
-                        <li class="nav-item  ">
+                    <!--    <li class="nav-item  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <img height="40"  width="40" src="storage/icono admin/config.svg">
                                 <span class="title">Config</span>
@@ -96,7 +96,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li>-->
 
 
 
@@ -123,7 +123,7 @@
 
 
 
-                        <li class="nav-item  ">
+              <!--          <li class="nav-item  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <img height="40"  width="40" src="storage/icono admin/presupuesto.svg"> 
                                 <span class="title">Presupuestos</span>
@@ -142,7 +142,7 @@
                                 </li>
                             </ul>
                         </li>
-
+            -->
 
 
 
@@ -167,7 +167,7 @@
                         </li>
 
 
-                        <li class="nav-item  ">
+                   <!--     <li class="nav-item  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <img height="40"  width="40" src="storage/icono admin/liquidaciones.svg"> 
                                 <span class="title">Liquidaciones</span>
@@ -185,7 +185,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> -->
 
 
                         <li class="nav-item  ">
@@ -230,7 +230,7 @@
                         </li>
 
                            
-                        <li class="nav-item  ">
+                <!--        <li class="nav-item  ">
                             <a href="{!! URL::to('tickets/') !!}" class="nav-link nav-toggle">
                                 <img height="40"  width="40" src="storage/icono admin/ticket.svg">
                                 <span class="title">tickets</span>
@@ -245,23 +245,28 @@
                                 <span class="arrow"></span>
                             </a>
                         </li>
+                -->
 
                          <li class="nav-item  ">
                             <a href="{!! URL::to('usuario/') !!}" class="nav-link nav-toggle">
                                 <img height="40"  width="40" src="storage/icono admin/user.svg">
-                                <span class="title">Usuarios</span>
+                                <span class="title">Clientes</span>
                                 <span class="arrow"></span>
                             </a>
                         </li>
 
-                         <li class="nav-item  ">
+                     
+                     
+                          <li class="nav-item  ">
                             <a href="{!! URL::to('cliente/') !!}" class="nav-link nav-toggle">
                                 <img height="40"  width="40" src="storage/icono admin/cliente.svg">
                                 <span class="title">Clientes</span>
                                 <span class="arrow"></span>
                             </a>
                         </li>
+                         
 
+ <!--  
                          <li class="nav-item  ">
                             <a href="{!! URL::to('reportes/') !!}" class="nav-link nav-toggle">
                                 <img height="40"  width="40" src="storage/icono admin/reporte.svg">
@@ -276,9 +281,9 @@
                                 <span class="title">Graficas</span>
                                 <span class="arrow"></span>
                             </a>
-                        </li>
+                        </li>-->
 
-                        <li class="nav-item  ">
+                    <!--    <li class="nav-item  ">
                             <a href="{!! URL::to('reparaciones/') !!}" class="nav-link nav-toggle">
                                 <img height="40"  width="40" src="storage/icono admin/servicio-tecnico.svg">
                                 <span class="title">Servicio Tecnico</span>
@@ -292,7 +297,7 @@
                                 <span class="title">Newsletter</span>
                                 <span class="arrow"></span>
                             </a>
-                        </li>
+                        </li>-->
 
                         <li class="nav-item  ">
                             <a href="{!! URL::to('backup/') !!}" class="nav-link nav-toggle">

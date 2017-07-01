@@ -63,6 +63,13 @@ return array(
 
 ],
 
+'tipodepago'=>[
+'semanal' => 'semanal', 
+'mensuales' => 'mensuales', 
+'quincenales' => 'quincenales', 
+],
+
+
 'tipogasto'=>[
 'General' => 'General', 
 'Kiosco' => 'Kiosco', 

@@ -3,17 +3,25 @@
 namespace Soft\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use Soft\Http\Requests\ClienteCreateRequest;
 use Soft\Http\Requests\ClienteUpdateRequest;
-use Soft\Http\Requests;
+
+
 use Soft\Cliente;
-use Soft\Iva;
-use Soft\Transporte;
 use Session;
 use Redirect;
+use Soft\Http\Requests;
 use Alert;
 use Soft\User;
 use DB;
+use Flash;
+use Storage;
+use Image;
+use Auth;
+use Input;
+
+
 class ClienteController extends Controller
 {
     /**
@@ -23,9 +31,7 @@ class ClienteController extends Controller
      */
     public function index(Request $request)
     {
-        //modal
-        $ivas=iva::lists('descripcion','id');
-        $transportes=transporte::lists('descripcion','id');
+        
 
 
         $clientes=cliente::orderBy('nombre');
@@ -46,66 +52,113 @@ class ClienteController extends Controller
         }
 
         //realizamos la paginacion
-        $clientes=$clientes->paginate(10);
+        $clientes=$clientes->paginate(50);
         $link = "clientes";
-        return view('admin.cliente.index',compact('link','clientes','ivas','transportes'));
+        $count = cliente::where('tipo','=','semanal')->count();
+
+      
+       
+        return view('admin.cliente.index',compact('link','clientes','count'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    
+
+    public function mensuales(Request $request)
+    {
+
+
+        $clientes=cliente::orderBy('nombre');
+        //lo que ingresamos en el buscador lo alamacenamos en $usu_nombre
+        $nombre=$request->input('nombre');
+     
+        //preguntamos que si ($usu_nombre no es vacio
+        if (!empty($nombre)) {
+            //entonces me busque de usu_nombre a el nombre que le pasamos atraves de $usu_nombre
+           $clientes->where(DB::raw("CONCAT(nombre,'',apellido)"),'LIKE','%'.$nombre.'%');
+        }   
+
+        //busqueda por email
+        $email=$request->input('email');
+        if (!empty($email)) {
+            //entonces me busque de usu_nombre a el nombre que le pasamos atraves de $usu_nombre
+            $clientes->where('email','LIKE','%'.$email.'%');
+        }
+
+        //realizamos la paginacion
+        $clientes=$clientes->paginate(50);
+        $link = "clientes";
+        $count = cliente::where('tipo','=','mensuales')->count();
+
+       
+        return view('admin.cliente.listar.mensuales',compact('link','clientes','count'));
+    }
+
+
+
+    public function quincenales(Request $request)
+    {
+
+        $clientes=cliente::orderBy('nombre');
+        //lo que ingresamos en el buscador lo alamacenamos en $usu_nombre
+        $nombre=$request->input('nombre');
+     
+        //preguntamos que si ($usu_nombre no es vacio
+        if (!empty($nombre)) {
+            //entonces me busque de usu_nombre a el nombre que le pasamos atraves de $usu_nombre
+           $clientes->where(DB::raw("CONCAT(nombre,'',apellido)"),'LIKE','%'.$nombre.'%');
+        }   
+
+        //busqueda por email
+        $email=$request->input('email');
+        if (!empty($email)) {
+            //entonces me busque de usu_nombre a el nombre que le pasamos atraves de $usu_nombre
+            $clientes->where('email','LIKE','%'.$email.'%');
+        }
+
+        //realizamos la paginacion
+        $clientes=$clientes->paginate(50);
+        $link = "clientes";
+        $count = cliente::where('tipo','=','quincenales')->count();
+
+
+        return view('admin.cliente.listar.quincenales',compact('link','clientes','count'));
+    }
+
+
+
+
+
+
+  /*  public function create()
     {
         $ivas=iva::lists('descripcion','id');
         $transportes=transporte::lists('descripcion','id');
 
         return view('admin.cliente.create',['ivas'=>$ivas ,'transportes'=>$transportes ]);
-    }
+    }*/
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
+
+
     public function store(ClienteCreateRequest $request)
     {   
-        //validacion para el email
-        $email = Cliente::where('email','=',$request['email'])->first();
-
-        if($email == null){
 
         cliente::create($request->all());
-        Alert::success('Mensaje existoso', 'Cliente Creado');
-        return redirect('/cliente');
+        Alert::success('Mensaje existoso', 'Cliente Creado Correctamente');
+         
+        return Redirect::back();
 
-        }else{
-
-        Alert::error('Mensaje Error', 'el E-MAIL ya se encuentra registrado');
-        return redirect('/cliente');
-
-        }
+        
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+
     public function edit($id)
     {
       /*  $ivas=iva::lists('descripcion','id');
@@ -129,8 +182,8 @@ class ClienteController extends Controller
        $cliente->save();
 
         //le manda un mensaje al usuario
-           Alert::success('Mensaje existoso', 'Cliente Modificado');
-       return Redirect::to('/cliente');
+      Alert::success('Mensaje existoso', 'Cliente Modificado Exitosamente');
+      return Redirect::back();
     }
 
     /**
@@ -145,7 +198,7 @@ class ClienteController extends Controller
         $cliente->delete();
         
         //le manda un mensaje al usuario
-            Alert::success('Mensaje existoso', 'Cliente Eliminado'); 
+        Alert::success('Mensaje existoso', 'Cliente Eliminado'); 
         return Redirect::to('/cliente');
     }
 

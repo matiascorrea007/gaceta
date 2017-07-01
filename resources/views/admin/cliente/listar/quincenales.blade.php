@@ -19,9 +19,9 @@
 
 <div class="box-body">
 <ul class="nav nav-tabs">
-  <li class="active"><a href="{{ url('cliente') }}">Clientes Semanales ({{$count}})</a></li>
-  <li><a href="{{ url('cliente-quincenales') }}">Clientes Quincenales</a></li>
-  <li><a href="{{ url('clientes-mensuales') }}">Clientes Mensuales</a></li>
+  <li ><a href="{{ url('cliente') }}">Clientes Semanales </a></li>
+  <li class="active"><a href="{{ url('cliente-quincenales') }}">Clientes Quincenales ({{$count}})</a></li>
+  <li ><a href="{{ url('cliente-mensuales') }}">Clientes Mensuales </a></li>
 </ul>
 </div>
 
@@ -29,9 +29,9 @@
 <!--buscador-->
 {!!Form::open(['url'=>'cliente', 'method'=>'GET' , 'class'=>'navbar-form navbar-left' , 'role'=>'Search'])!!}
 <div class="form-group">
-	{!!Form::label('')!!}
-	{!!Form::text('nombre',null,['class'=>'form-control','placeholder'=>'nombre'])!!}
-	{!!Form::text('email',null,['class'=>'form-control','placeholder'=>'Email'])!!}
+  {!!Form::label('')!!}
+  {!!Form::text('nombre',null,['class'=>'form-control','placeholder'=>'nombre'])!!}
+  {!!Form::text('email',null,['class'=>'form-control','placeholder'=>'Email'])!!}
  <button type="submit" class="glyphicon glyphicon-search btn btn-success"> BUSCAR </button>
 </div>
 {!!Form::close()!!}
@@ -46,7 +46,7 @@
        <div class="btn-group btn-group-devided" >
 
           <button type="button" class="btn btn-success" data-toggle="modal" data-target="#crear-cliente"><i class="fa fa-plus fa-lg"></i></button>
-  		
+      
        </div>
    </div>
 
@@ -55,39 +55,39 @@
     <div class="portlet-body">
         <div class="table-scrollable">
             <table id="example2" class="table table-hover table-light">
-	<thead>
-		
-		<th>Nombre</th>
-		<th>Correo</th>
-		<th>Telefono</th>
-		<th>Direccion</th>
-		<th>Cuit</th>
-		<th>Transpsporte</th>
-		<th>Iva</th>
-		<th class="col-md-4">Operaciones</th>
-	</thead>
-	@foreach($clientes as $cliente)
-	 @if($cliente->tipo == "semanal")
-	<tbody>
-	<!-- -->
-	<td>{{ $cliente -> nombre}}</td>
-	<td>{{ $cliente -> email}}</td>
-	<td>{{ $cliente -> telefono}}</td>
-	<td>{{ $cliente -> direccion}}</td>
-	<td>{{ $cliente -> cuit}}</td>
+  <thead>
+    
+    <th>Nombre</th>
+    <th>Correo</th>
+    <th>Telefono</th>
+    <th>Direccion</th>
+    <th>Cuit</th>
+    <th>Transpsporte</th>
+    <th>Iva</th>
+    <th class="col-md-4">Operaciones</th>
+  </thead>
+  @foreach($clientes as $cliente)
+  @if($cliente->tipo == "quincenales")
+  <tbody>
+  <!-- -->
+  <td>{{ $cliente -> nombre}}</td>
+  <td>{{ $cliente -> email}}</td>
+  <td>{{ $cliente -> telefono}}</td>
+  <td>{{ $cliente -> direccion}}</td>
+  <td>{{ $cliente -> cuit}}</td>
 
-	@if($cliente->transporte_id != null)
-	<td>{{ $cliente ->transporte->descripcion}}</td>
-	@else
-	<td></td>
-	@endif
+  @if($cliente->transporte_id != null)
+  <td>{{ $cliente ->transporte->descripcion}}</td>
+  @else
+  <td></td>
+  @endif
 
-	@if($cliente->iva_id != null)
-	<td>{{ $cliente ->iva->descripcion}}</td>
-	@else
-	<td></td>
-	@endif
-	
+  @if($cliente->iva_id != null)
+  <td>{{ $cliente ->iva->descripcion}}</td>
+  @else
+  <td></td>
+  @endif
+  
 <td>
 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#ver-{{ $cliente->id }}"><i class="fa fa-expand"></i></button>
 
@@ -106,10 +106,10 @@
 @endif
 </td>
 
-	</tbody>
-	@endif
-	@endforeach
-	</table>
+  </tbody>
+  @endif
+  @endforeach
+  </table>
                     </div>
                 </div>
             </div>

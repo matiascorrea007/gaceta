@@ -20,13 +20,12 @@ class Cliente extends Model
             'observacion',    
             'provincia',
             'ciudad',
-            'iva_id',
             'lista_precio',
             'cuit',
             'cp',
-            'transporte_id',
             'habilitado',
             'cuentacorriente',
+            'tipo',
     ];
     		
 public function presupuesto()

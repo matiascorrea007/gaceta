@@ -20,9 +20,9 @@
 
 <div class="box-body">
 <ul class="nav nav-tabs">
-  <li class="active"><a href="{{ url('producto') }}">Clientes Semanales ({{$count}})</a></li>
-  <li><a href="{{ url('producto-combo') }}">Clientes Quincenales</a></li>
-  <li><a href="{{ url('producto-oferta') }}">Clientes Mensuales</a></li>
+  <li ><a href="{{ url('cliente') }}">Clientes Semanales </a></li>
+  <li class="active"><a href="{{ url('cliente-quincenales') }}">Clientes Quincenales ({{$count}})</a></li>
+  <li><a href="{{ url('cliente-mensuales') }}">Clientes Mensuales</a></li>
 </ul>
 </div>
 
@@ -76,7 +76,7 @@
                     </tr>
                 </thead>
                 @foreach($users as $user)
-                 
+                @if($user->tipo == "quincenal")
                 <tbody>
                     <td>{{ $user -> id}}</td>
                     <td>{{ $user -> nombre}} {{ $user -> apellido}}</td>
@@ -99,7 +99,7 @@
 </td>
 
                     </tbody>
-                   
+                    @endif
                       @endforeach
                         </table>
                     </div>

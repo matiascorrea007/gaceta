@@ -46,6 +46,10 @@ Route::get('ubicacion','PaginasController@ubicacion');
 
 
 
+
+
+
+
 /*------------------contactenos-----------------------*/
 Route::get('contacto','PaginasController@contacto');
 Route::post('mail','MailController@send');
@@ -336,14 +340,16 @@ Route::put('provedor-update/{id}','ProvedoreController@update');
 Route::delete('provedor-destroy/{id}','ProvedoreController@destroy');
 
 
+
+
 Route::get('cliente','ClienteController@index');
+Route::get('cliente-mensuales','ClienteController@mensuales');
+Route::get('cliente-quincenales','ClienteController@quincenales');
 Route::get('cliente-create','ClienteController@create');
 Route::post('cliente-store','ClienteController@store');
 Route::put('cliente-update/{id}','ClienteController@update');
 Route::delete('cliente-destroy/{id}','ClienteController@destroy');
 Route::get('cliente-crear-usuario/{id}','ClienteController@CrearUsuario');
-
-
 
 Route::get('gasto','GastoController@index');
 Route::get('gasto-create','GastoController@create');
