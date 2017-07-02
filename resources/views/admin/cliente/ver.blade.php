@@ -9,7 +9,7 @@
             <div class="caption">
 
 <i class="icon-user font-red"></i>
-<span class="caption-subject font-red sbold uppercase">Seccion de Clientes</span>
+<span class="caption-subject font-red sbold uppercase">Clientes ({{$cliente->nombre}} {{$cliente->apellido}})</span>
 @include('alerts.request')
 @include('alerts.success')
 
@@ -17,13 +17,7 @@
     </div>
 
 
-<div class="box-body">
-<ul class="nav nav-tabs">
-  <li class="active"><a href="{{ url('cliente') }}">Clientes Semanales ({{$count}})</a></li>
-  <li><a href="{{ url('cliente-quincenales') }}">Clientes Quincenales</a></li>
-  <li><a href="{{ url('clientes-mensuales') }}">Clientes Mensuales</a></li>
-</ul>
-</div>
+
 
 
 <!--buscador-->
@@ -45,7 +39,7 @@
     <div class="actions">
        <div class="btn-group btn-group-devided" >
 
-          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#crear-cliente"><i class="fa fa-plus fa-lg"></i></button>
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#crear-pago">Generar Facturas<i class="fa fa-plus fa-lg"></i></button>
   		
        </div>
    </div>
@@ -68,7 +62,7 @@
 		<th>Tipo de Pago</th>
 		<th class="col-md-4">Operaciones</th>
 	</thead>
-	@foreach($clientes as $cliente)
+	
 	 @if($cliente->tipo == "semanal")
 	<tbody>
 	<!-- -->
@@ -84,7 +78,7 @@
 	
 	
 <td>
-<a href="{!! URL::to('cliente-ver-'.$cliente->id) !!}" class="btn btn-warning"><i class="fa fa-expand"></i></a>
+<a href="{!! URL::to('cliente-ver/'.$cliente->id) !!}" class="btn btn-warning"><i class="fa fa-expand"></i></a>
 
 
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Edit-{{ $cliente->id }}"><i class="fa fa-edit"></i></button>
@@ -104,7 +98,7 @@
 
 	</tbody>
 	@endif
-	@endforeach
+	
 	</table>
                     </div>
                 </div>
@@ -113,18 +107,10 @@
         </div>
     </div>
 
-<!--modal editar cliente-->
- @include('admin.cliente.modal.modal-edit-cliente')
-<!--modal eliminar cliente-->
- @include('admin.cliente.modal.modal-delete-cliente')
- <!--modal ver cliente-->
- @include('admin.cliente.modal.modal-ver-cliente')
- <!--modal crear cliente-->
- @include('admin.cliente.modal.modal-crear-cliente')
 
 
-<!--para renderizar la paginacion-->
-  {!! $clientes->render() !!}
+ <!--modal crear pago-->
+ @include('admin.cliente.modal.modal-crear-pago')
 
                           
 

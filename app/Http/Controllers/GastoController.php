@@ -10,6 +10,7 @@ use Session;
 use Redirect;
 use Soft\Http\Requests;
 use Soft\Gasto;
+use Alert;
 
 class GastoController extends Controller
 {
@@ -112,6 +113,7 @@ class GastoController extends Controller
         $gastos->delete();
         
         //le manda un mensaje al usuario
+         Alert::success('Mensaje existoso', 'Cliente Modificado');
         Session::flash('message','Gasto eliminado con exito'); 
         return Redirect::to('/gasto');
     }

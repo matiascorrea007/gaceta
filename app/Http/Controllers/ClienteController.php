@@ -14,6 +14,7 @@ use Redirect;
 use Soft\Http\Requests;
 use Alert;
 use Soft\User;
+use Soft\Dia;
 use DB;
 use Flash;
 use Storage;
@@ -57,7 +58,8 @@ class ClienteController extends Controller
         $count = cliente::where('tipo','=','semanal')->count();
 
       
-       
+       //$clientee = Cliente::find(8);
+      // dd($clientee->created_at->addweeks(1));
         return view('admin.cliente.index',compact('link','clientes','count'));
     }
 
@@ -140,10 +142,33 @@ class ClienteController extends Controller
 
 
 
+    public function ver(Request $request,$id)
+    {   
+        $link = "clientes";
+       $cliente = Cliente::find($id);
+        return view('admin.cliente.ver',compact('cliente','link'));
+    }
+
+
     public function store(ClienteCreateRequest $request)
     {   
 
-        cliente::create($request->all());
+        $cliente = cliente::create($request->all());
+       
+
+       
+
+        $dias =   Dia::create([
+            'cliente_id' =>$cliente->id,
+            'lunes' =>$request['lunes'],
+            'martes'=>$request['martes'],
+            'miercoles'=>$request['miercoles'],
+            'jueves' =>$request['jueves'],
+            'viernes' =>$request['viernes'],
+            'sabado' =>$request['sabado'],
+            'domingo' =>$request['domingo'],
+            ]);
+
         Alert::success('Mensaje existoso', 'Cliente Creado Correctamente');
          
         return Redirect::back();

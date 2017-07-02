@@ -75,12 +75,7 @@
 
 
 <div class="row">
-	<div class="form-group col-xs-12 col-sm-12 col-md-4">
-	<div class="input-group input-icon right ">
- 	<span class="input-group-addon"><i class="fa fa-bank font-blue"> Iva :</i></span>
-		{!!Form::select('iva_id',$ivas,'',['class'=>' form-control'])!!}
-	</div>
-	</div>
+
 
 	<div class="form-group col-xs-12 col-sm-12 col-md-4">
 	<div class="input-group input-icon right ">
@@ -89,13 +84,20 @@
 	</div>
 	</div>
 
-
 	<div class="form-group col-xs-12 col-sm-12 col-md-4">
 	<div class="input-group input-icon right ">
- 	<span class="input-group-addon"><i class="fa fa-bus font-blue"> Transporte :</i></span>
-		{!!Form::select('transporte_id',$transportes,'',['class'=>' form-control'])!!}
+ 	<span class="input-group-addon"><i class="fa fa-map-marker font-blue"> Departamento :</i></span>
+	{!!Form::text('departamento',null,['class'=>'form-control','placeholder'=>'ingrese el numero del departamento'])!!}
 	</div>
 	</div>
+
+	<div class="form-group col-xs-12 col-sm-12 col-md-4">
+	<div class="input-group input-icon right">
+ 	<span class="input-group-addon"><i class="fa fa-money font-red"> Tipo De Pago :</i></span>
+	{!! Form::select('tipo', config('options.tipodepago'),'', array('class' => 'form-control')) !!}
+	</div>
+	</div>
+
 </div>
 
 
@@ -113,62 +115,124 @@
 
 
  <div class="portlet light ">
-<div class="form-group form-md-checkboxes">
+<div class="form-group col-xs-12 col-sm-12 col-md-4">
 <div class="md-checkbox-list">
-    <div class="md-checkbox has-success">
-        <input type="checkbox" id="checkbox1" class="md-check" name="habilitado" checked>
-        <label for="checkbox1">
-            <span></span>
-            <span class="check"></span>
-            <span class="box"></span> habilitado </label>
+    <div class="mt-checkbox-list ">
+        <label class="mt-checkbox"> habilitado
+        <input type="checkbox" value="1" id="checkbox1"  name="habilitado" checked>
+          <span></span>
+        </label>
     </div>
 </div>
 </div>
 </div>
 
 
-
-
- <div class="portlet light ">
-<div class="form-group form-md-checkboxes">
-<div class="md-checkbox-list">
-    <div class="md-checkbox has-success">
-        <input type="checkbox" id="checkbox2" class="md-check" name="cuentacorriente">
-        <label for="checkbox2">
-            <span></span>
-            <span class="check"></span>
-            <span class="box"></span> Habilitar Cta Cte </label>
-    </div>
 </div>
 </div>
 </div>
-
-
-
-</div>
-</div>
-</div>
-
-
-
 
 
 
 <div class="panel panel-primary">
 		<div class="panel-heading">
-   		 	<h3 class="panel-title">Comentario</h3>
+   		 	<h3 class="panel-title">Dias de Reparto de la Gaceta</h3>
  		</div>	
   <div class="panel-body">
 <div class="row">
 
-<div class="form-horizontal ">
-	{!!Form::textarea ('observacion',null,['class'=>'form-control my-editor','id'=>'lfm','placeholder'=>'ingrese la observacion'])!!}<br><br><br>
+
+
+ <div class="portlet light ">
+<div class="form-group col-xs-12 col-sm-12 col-md-2">
+<div class="md-checkbox-list">
+    <div class="mt-checkbox-list ">
+        <label class="mt-checkbox"> Lunes
+        <input type="checkbox" value="1" id="checkbox1"  name="lunes">
+          <span></span>
+        </label>
+    </div>
+</div>
+</div>
+
+<div class="form-group col-xs-12 col-sm-12 col-md-2">
+<div class="md-checkbox-list">
+    <div class="mt-checkbox-list ">
+        <label class="mt-checkbox"> Martes
+        <input type="checkbox" value="1" id="checkbox1"  name="martes">
+          <span></span>
+        </label>
+    </div>
+</div>
+</div>
+
+<div class="form-group col-xs-12 col-sm-12 col-md-2">
+<div class="md-checkbox-list">
+    <div class="mt-checkbox-list ">
+        <label class="mt-checkbox"> Miercoles
+        <input type="checkbox" value="1" id="checkbox1"  name="miercoles">
+          <span></span>
+        </label>
+    </div>
+</div>
+</div>
+
+<div class="form-group col-xs-12 col-sm-12 col-md-2">
+<div class="md-checkbox-list">
+    <div class="mt-checkbox-list ">
+        <label class="mt-checkbox"> Jueves
+        <input type="checkbox" value="1" id="checkbox1"  name="jueves">
+          <span></span>
+        </label>
+    </div>
+</div>
+</div>
+
+<div class="form-group col-xs-12 col-sm-12 col-md-2">
+<div class="md-checkbox-list">
+    <div class="mt-checkbox-list ">
+        <label class="mt-checkbox"> Viernes
+        <input type="checkbox" value="1" id="checkbox1"  name="viernes">
+          <span></span>
+        </label>
+    </div>
+</div>
+</div>
+
+<div class="form-group col-xs-12 col-sm-12 col-md-2">
+<div class="md-checkbox-list">
+    <div class="mt-checkbox-list ">
+        <label class="mt-checkbox"> Sabado
+        <input type="checkbox" value="1" id="checkbox1"  name="sabado">
+          <span></span>
+        </label>
+    </div>
+</div>
+</div>
+
+<div class="form-group col-xs-12 col-sm-12 col-md-2">
+<div class="md-checkbox-list">
+    <div class="mt-checkbox-list ">
+        <label class="mt-checkbox"> Domingo
+        <input type="checkbox" value="1" id="checkbox1"  name="domingo">
+          <span></span>
+        </label>
+    </div>
+</div>
 </div>
 
 
+
 </div>
 </div>
 </div>
+</div>
+
+
+
+
+
+
 
 
 

@@ -345,6 +345,9 @@ Route::delete('provedor-destroy/{id}','ProvedoreController@destroy');
 Route::get('cliente','ClienteController@index');
 Route::get('cliente-mensuales','ClienteController@mensuales');
 Route::get('cliente-quincenales','ClienteController@quincenales');
+Route::get('cliente-ver-{id}','ClienteController@ver');
+
+Route::get('cliente-crear-pago','ClienteController@ver');
 Route::get('cliente-create','ClienteController@create');
 Route::post('cliente-store','ClienteController@store');
 Route::put('cliente-update/{id}','ClienteController@update');

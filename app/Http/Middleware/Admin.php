@@ -42,9 +42,8 @@ class Admin
 
 
 
-            if (  Auth::user()->perfil_id == 1 or Auth::user()->perfil_id == 2 ) {
-                 return $next($request);
-            }
+                  return $next($request);
+        
        
     
 
