@@ -91,7 +91,8 @@
 		
 <td>
 
-<a href="{!! URL::to('cliente-ver/'.$factura->id) !!}" target="_blank"><button class="btn btn-danger"><i class="fa fa-file-pdf-o"> PDF</i></button></a>
+<a href="{!! URL::to('factura-detalle-pdf/1/'.$factura->id) !!}" target="_blank"><button class="btn btn-danger"><i class="fa fa-file-pdf-o"> PDF</i></button></a>
+
 
 
 <!--esto es para que solo el administrador pueda eliminar-->

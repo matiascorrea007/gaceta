@@ -230,4 +230,29 @@ class FacturaController extends Controller
 
 
 
+    public function detalleFacturaPdf($tipo,$id){
+        $vistaurl="admin.cliente.factura-detalle-pdf";
+        $facturas=Factura::find($id);
+        $logo = DB::table('web_logos')->first();
+
+     return $this->crearPDF($logo,$facturas, $vistaurl,$tipo,$id);
+     
+    }
+
+    public function crearPDF($logo,$facturas,$vistaurl,$tipo ,$id){
+        
+        $data = $facturas;
+        $date = date('Y-m-d');
+        $view =  \View::make($vistaurl, compact('data','logo', 'date','id'))->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+
+
+        
+       if($tipo==1){return $pdf->stream('reporte');}
+       if($tipo==2){return $pdf->download('reporte.pdf'); }
+     
+    }
+
+
 }

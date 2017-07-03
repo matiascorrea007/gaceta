@@ -364,7 +364,7 @@ Route::post('factura-cambiar-status/{id}','FacturaController@cambiarStatus');
 Route::post('factura-store-{id}','FacturaController@store');
 Route::put('factura-update/{id}','FacturaController@update');
 Route::delete('factura-destroy/{id}','FacturaController@destroy');
-
+Route::get('factura-detalle-pdf/{tipo}/{id}','FacturaController@detalleFacturaPdf');
 
 Route::get('precio','PrecioController@index');
 Route::get('precio-ver-{id}','PrecioController@ver');

@@ -3,41 +3,23 @@
 @include('alerts.request')
 
 
-<?php
 
-/*Conexion MySQLi*/
-
-$hostname = 'localhost'; // Your host name
-$database = 'gestion'; // Your database name here
-$username = 'root'; // Your mysql username here
-$password = '4247875'; // Your mysql password here
-
-if ($database == '') {
-  ?>
-  <div class="alert alert-dismissible alert-danger">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    Debes configurar el archivo de conexion con MySQL ubicado en src/php/conexion.php
-    <br> <small>Error: El nombre de la base de datos no ha sido definido.</small>
-  </div>
-  <?php
-}
-# De lo contrario hace la conexion
-else{
-  # conexion MySQLi
-  $sql = new mysqli($hostname, $username, $password, $database);
-  if ($sql->connect_errno) {
-    echo "Error de conexión MySQLi" . '<br>';
-    echo "Conexión Error: " . $sql->error;
-  }
-  else{
-    date_default_timezone_set('America/Caracas');
-    $sql->query("SET NAMES UTF8");
-  }
-}
-?>
+<?php 
+ $document_root = $_SERVER['DOCUMENT_ROOT'];
+ for ($i=1; $i <= strlen($document_root) ; $i++) {
+   $document_root = str_replace("/", "\\", $document_root);
+ }
+ $root = $document_root;
+ $document_root = str_replace($document_root, '', getcwd() . DIRECTORY_SEPARATOR);
+ define('STATE', $document_root);
+ $document_root = explode("\\", $document_root);
+ define('FOLDER_ROOT', DIRECTORY_SEPARATOR . $document_root[1] . DIRECTORY_SEPARATOR);
+ define('ROOT', $root . FOLDER_ROOT);
+ include '..\mis modulos\backup\php\conexion.php'; 
+ ?>
 
 
-
+ 
 
 <div class="row">
     <div class="col-md-12">
@@ -124,6 +106,6 @@ else{
         </div>
     </div>
 
-                          
+                <script src="<?php echo '..\mis modulos\backup\javascript\getDb.js' ?>"></script>           
 
 @endsection

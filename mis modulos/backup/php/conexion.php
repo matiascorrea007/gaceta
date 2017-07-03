@@ -3,9 +3,9 @@
 /*Conexion MySQLi*/
 
 $hostname = 'localhost'; // Your host name
-$database = 'gestion'; // Your database name here
+$database = 'gaceta'; // Your database name here
 $username = 'root'; // Your mysql username here
-$password = '4247875'; // Your mysql password here
+$password = ''; // Your mysql password here
 
 if ($database == '') {
   ?>
