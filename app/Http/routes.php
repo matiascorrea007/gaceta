@@ -347,7 +347,8 @@ Route::delete('provedor-destroy/{id}','ProvedoreController@destroy');
 
 
 
-
+//backup 
+Route::get('backup', 'BackupController@index');
 
 
 Route::get('cliente','ClienteController@index');
@@ -372,7 +373,8 @@ Route::post('precio-store','PrecioController@store');
 Route::put('precio-update/{id}','PrecioController@update');
 Route::delete('precio-destroy/{id}','PrecioController@destroy');
 
-
+Route::get('reparto','RepartoController@index');
+Route::get('reparto-calcular','RepartoController@repartoCalcular');
 
 
 
@@ -433,8 +435,7 @@ Route::post('reparacion-cambiar-status/{id}','ServicioTecnicoController@Servicio
 Route::delete('reparacion-destroy/{id}','ServicioTecnicoController@destroy');
 Route::get('reparacion-pdf/{tipo}/{id}','ServicioTecnicoController@crearReporteReparacion');
 
-//backup 
-Route::get('backup', 'BackupController@index');
+
 
 
 /*---------------menu------------*/

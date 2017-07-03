@@ -250,7 +250,7 @@
                          <li class="nav-item  ">
                             <a href="{!! URL::to('usuario/') !!}" class="nav-link nav-toggle">
                                 <img height="40"  width="40" src="storage/icono admin/user.svg">
-                                <span class="title">Clientes</span>
+                                <span class="title">Usuarios</span>
                                 <span class="arrow"></span>
                             </a>
                         </li>
@@ -261,6 +261,14 @@
                             <a href="{!! URL::to('cliente/') !!}" class="nav-link nav-toggle">
                                 <img height="40"  width="40" src="storage/icono admin/cliente.svg">
                                 <span class="title">Clientes</span>
+                                <span class="arrow"></span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item  ">
+                            <a href="{!! URL::to('reparto/') !!}" class="nav-link nav-toggle">
+                                <img height="40"  width="40" src="storage/icono admin/reparto.svg">
+                                <span class="title">Reparto</span>
                                 <span class="arrow"></span>
                             </a>
                         </li>
