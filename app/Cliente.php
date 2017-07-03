@@ -4,6 +4,8 @@ namespace Soft;
 
 use Illuminate\Database\Eloquent\Model;
 use Soft\Presupuesto;
+use Soft\Factura;
+
 
 class Cliente extends Model
 {
@@ -21,6 +23,13 @@ class Cliente extends Model
             'cuit',
             'habilitado',
             'tipo',
+            'lunes',
+            'martes',
+            'miercoles',
+            'jueves',
+            'viernes',
+            'sabado',
+            'domingo',
     ];
     		
 public function presupuesto()
@@ -30,10 +39,10 @@ public function presupuesto()
     }
 
 
-public function venta()
+public function factura()
     {
         //un cliente puede tener muchas ventas
-       return $this->hasMany(Venta::class);
+       return $this->hasMany(Factura::class);
     }
 
 

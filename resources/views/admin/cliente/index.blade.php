@@ -21,7 +21,7 @@
 <ul class="nav nav-tabs">
   <li class="active"><a href="{{ url('cliente') }}">Clientes Semanales ({{$count}})</a></li>
   <li><a href="{{ url('cliente-quincenales') }}">Clientes Quincenales</a></li>
-  <li><a href="{{ url('clientes-mensuales') }}">Clientes Mensuales</a></li>
+  <li><a href="{{ url('cliente-mensuales') }}">Clientes Mensuales</a></li>
 </ul>
 </div>
 
@@ -30,8 +30,8 @@
 {!!Form::open(['url'=>'cliente', 'method'=>'GET' , 'class'=>'navbar-form navbar-left' , 'role'=>'Search'])!!}
 <div class="form-group">
 	{!!Form::label('')!!}
-	{!!Form::text('nombre',null,['class'=>'form-control','placeholder'=>'nombre'])!!}
-	{!!Form::text('email',null,['class'=>'form-control','placeholder'=>'Email'])!!}
+	{!!Form::text('nombre',null,['class'=>'form-control','placeholder'=>'Nombre'])!!}
+	{!!Form::text('direccion',null,['class'=>'form-control','placeholder'=>'Direccion'])!!}
  <button type="submit" class="glyphicon glyphicon-search btn btn-success"> BUSCAR </button>
 </div>
 {!!Form::close()!!}
@@ -61,13 +61,20 @@
 		
 		<th>Nombre</th>
 		<th>Apellido</th>
-		<th>Razon social</th>
+		<!--<th>Razon social</th>-->
 		<th>Telefono</th>
-		<th>Correo</th>
-		<th>Cuit</th>
+		<!--<th>Correo</th>
+			<th>Cuit</th>-->
 		<th class="col-md-3">Direccion</th>
 		<th>N* Depto</th>
-		<th>Tipo de Pago</th>
+		<!--<th>Tipo de Pago</th>-->
+		<th>lun</th>
+		<th>mar</th>
+		<th>mie</th>
+		<th>jue</th>
+		<th>vie</th>
+		<th>sab</th>
+		<th>dom</th>
 		<th class="col-md-4">Operaciones</th>
 	</thead>
 	@foreach($clientes as $cliente)
@@ -76,17 +83,24 @@
 	<!-- -->
 	<td>{{ $cliente -> nombre}}</td>
 	<td>{{ $cliente -> apellido}}</td>
-	<td>{{ $cliente -> razonsocial}}</td>
+	<!--<td>{{ $cliente -> razonsocial}}</td>-->
 	<td>{{ $cliente -> telefono}}</td>
-	<td>{{ $cliente -> email}}</td>
-	<td>{{ $cliente -> cuit}}</td>
+	<!--<td>{{ $cliente -> email}}</td>
+		<td>{{ $cliente -> cuit}}</td>-->
 	<td>{{ $cliente -> direccion}}</td>
 	<td>{{ $cliente -> departamento}}</td>
-	<td>{{ $cliente -> tipo}}</td>
+	<!--<td>{{ $cliente -> tipo}}</td>-->
+	<td>@if($cliente -> lunes == 1) si @else no @endif</td>
+	<td>@if($cliente -> martes == 1) si @else no @endif</td>
+	<td>@if($cliente -> miercoles == 1) si @else no @endif</td>
+	<td>@if($cliente -> jueves == 1) si @else no @endif</td>
+	<td>@if($cliente -> viernes == 1) si @else no @endif</td>
+	<td>@if($cliente -> sabado == 1) si @else no @endif</td>
+	<td>@if($cliente -> domingo == 1) si @else no @endif</td>
 	
 	
 <td>
-<a href="{!! URL::to('cliente-ver-'.$cliente->id) !!}" class="btn btn-warning"><i class="fa fa-expand"></i></a>
+<a href="{!! URL::to('factura-ver-'.$cliente->id) !!}" class="btn btn-warning"><i class="fa fa-expand"></i></a>
 
 
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Edit-{{ $cliente->id }}"><i class="fa fa-edit"></i></button>
@@ -117,8 +131,6 @@
  @include('admin.cliente.modal.modal-edit-cliente')
 <!--modal eliminar cliente-->
  @include('admin.cliente.modal.modal-delete-cliente')
- <!--modal ver cliente-->
- @include('admin.cliente.modal.modal-ver-cliente')
  <!--modal crear cliente-->
  @include('admin.cliente.modal.modal-crear-cliente')
  <!--modal Precios-->

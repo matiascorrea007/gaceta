@@ -46,6 +46,8 @@
        <div class="btn-group btn-group-devided" >
 
           <button type="button" class="btn btn-success" data-toggle="modal" data-target="#crear-cliente"><i class="fa fa-plus fa-lg"></i></button>
+
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#precios"><i class="fa fa-money fa-lg"></i> Precios</button>
       
        </div>
    </div>
@@ -58,38 +60,48 @@
   <thead>
     
     <th>Nombre</th>
-    <th>Correo</th>
+    <th>Apellido</th>
+    <!--<th>Razon social</th>-->
     <th>Telefono</th>
-    <th>Direccion</th>
-    <th>Cuit</th>
-    <th>Transpsporte</th>
-    <th>Iva</th>
+    <!--<th>Correo</th>
+      <th>Cuit</th>-->
+    <th class="col-md-3">Direccion</th>
+    <th>N* Depto</th>
+    <!--<th>Tipo de Pago</th>-->
+    <th>lun</th>
+    <th>mar</th>
+    <th>mie</th>
+    <th>jue</th>
+    <th>vie</th>
+    <th>sab</th>
+    <th>dom</th>
     <th class="col-md-4">Operaciones</th>
   </thead>
   @foreach($clientes as $cliente)
-  @if($cliente->tipo == "quincenales")
+   @if($cliente->tipo == "quincenales")
   <tbody>
   <!-- -->
   <td>{{ $cliente -> nombre}}</td>
-  <td>{{ $cliente -> email}}</td>
+  <td>{{ $cliente -> apellido}}</td>
+  <!--<td>{{ $cliente -> razonsocial}}</td>-->
   <td>{{ $cliente -> telefono}}</td>
+  <!--<td>{{ $cliente -> email}}</td>
+    <td>{{ $cliente -> cuit}}</td>-->
   <td>{{ $cliente -> direccion}}</td>
-  <td>{{ $cliente -> cuit}}</td>
-
-  @if($cliente->transporte_id != null)
-  <td>{{ $cliente ->transporte->descripcion}}</td>
-  @else
-  <td></td>
-  @endif
-
-  @if($cliente->iva_id != null)
-  <td>{{ $cliente ->iva->descripcion}}</td>
-  @else
-  <td></td>
-  @endif
+  <td>{{ $cliente -> departamento}}</td>
+  <!--<td>{{ $cliente -> tipo}}</td>-->
+  <td>@if($cliente -> lunes == 1) si @else no @endif</td>
+  <td>@if($cliente -> martes == 1) si @else no @endif</td>
+  <td>@if($cliente -> miercoles == 1) si @else no @endif</td>
+  <td>@if($cliente -> jueves == 1) si @else no @endif</td>
+  <td>@if($cliente -> viernes == 1) si @else no @endif</td>
+  <td>@if($cliente -> sabado == 1) si @else no @endif</td>
+  <td>@if($cliente -> domingo == 1) si @else no @endif</td>
+  
   
 <td>
-<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#ver-{{ $cliente->id }}"><i class="fa fa-expand"></i></button>
+<a href="{!! URL::to('factura-ver-'.$cliente->id) !!}" class="btn btn-warning"><i class="fa fa-expand"></i></a>
+
 
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Edit-{{ $cliente->id }}"><i class="fa fa-edit"></i></button>
 
@@ -101,9 +113,7 @@
  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDelete-{{ $cliente->id }}"><i class="fa fa-trash-o"></i></button>
 @endif
 
-@if($cliente->user_id == null)
-<a href="{!! URL::to('cliente-crear-usuario/'.$cliente->id) !!}" class="btn btn-success"><i class="fa fa-user"> Crar Usuario</i></a>
-@endif
+
 </td>
 
   </tbody>
@@ -121,11 +131,10 @@
  @include('admin.cliente.modal.modal-edit-cliente')
 <!--modal eliminar cliente-->
  @include('admin.cliente.modal.modal-delete-cliente')
- <!--modal ver cliente-->
- @include('admin.cliente.modal.modal-ver-cliente')
  <!--modal crear cliente-->
  @include('admin.cliente.modal.modal-crear-cliente')
-
+ <!--modal Precios-->
+ @include('admin.cliente.modal.modal-precios')
 
 <!--para renderizar la paginacion-->
   {!! $clientes->render() !!}

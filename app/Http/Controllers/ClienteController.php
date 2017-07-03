@@ -39,7 +39,10 @@ class ClienteController extends Controller
         $clientes=cliente::orderBy('nombre');
         //lo que ingresamos en el buscador lo alamacenamos en $usu_nombre
         $nombre=$request->input('nombre');
-     
+        
+        $clientes = DB::table('dias')
+        ->join('clientes', 'dias.cliente_id', '=', 'clientes.id')->paginate(10);
+
         //preguntamos que si ($usu_nombre no es vacio
         if (!empty($nombre)) {
             //entonces me busque de usu_nombre a el nombre que le pasamos atraves de $usu_nombre
@@ -47,16 +50,17 @@ class ClienteController extends Controller
         }   
 
         //busqueda por email
-        $email=$request->input('email');
-        if (!empty($email)) {
+        $direccion=$request->input('direccion');
+        if (!empty($direccion)) {
             //entonces me busque de usu_nombre a el nombre que le pasamos atraves de $usu_nombre
-            $clientes->where('email','LIKE','%'.$email.'%');
-        }
+            $clientes->where('direccion','LIKE','%'.$direccion.'%');
+        }   
 
+        //$clientes = $clientes->paginate(10);
+
+        //dd($clientes);
         //realizamos la paginacion
-    
-         $clientes = DB::table('dias')
-        ->join('clientes', 'dias.cliente_id', '=', 'clientes.id')->paginate(10);
+         
       
         //dd($clientes);
 
@@ -93,12 +97,16 @@ class ClienteController extends Controller
         }
 
         //realizamos la paginacion
-        $clientes=$clientes->paginate(50);
+         $clientes = DB::table('dias')
+        ->join('clientes', 'dias.cliente_id', '=', 'clientes.id')->paginate(10);
+
+
         $link = "clientes";
         $count = cliente::where('tipo','=','mensuales')->count();
+        $precios = Precio::first();
 
        
-        return view('admin.cliente.listar.mensuales',compact('link','clientes','count'));
+        return view('admin.cliente.listar.mensuales',compact('link','clientes','count','precios'));
     }
 
 
@@ -124,12 +132,16 @@ class ClienteController extends Controller
         }
 
         //realizamos la paginacion
-        $clientes=$clientes->paginate(50);
+         $clientes = DB::table('dias')
+        ->join('clientes', 'dias.cliente_id', '=', 'clientes.id')->paginate(10);
+
+
         $link = "clientes";
         $count = cliente::where('tipo','=','quincenales')->count();
+        $precios = Precio::first();
 
 
-        return view('admin.cliente.listar.quincenales',compact('link','clientes','count'));
+        return view('admin.cliente.listar.quincenales',compact('link','clientes','count','precios'));
     }
 
 
@@ -160,20 +172,6 @@ class ClienteController extends Controller
     {   
 
         $cliente = cliente::create($request->all());
-       
-
-       
-
-        $dias =   Dia::create([
-            'cliente_id' =>$cliente->id,
-            'lunes' =>$request['lunes'],
-            'martes'=>$request['martes'],
-            'miercoles'=>$request['miercoles'],
-            'jueves' =>$request['jueves'],
-            'viernes' =>$request['viernes'],
-            'sabado' =>$request['sabado'],
-            'domingo' =>$request['domingo'],
-            ]);
 
         Alert::success('Mensaje existoso', 'Cliente Creado Correctamente');
          
@@ -220,21 +218,14 @@ class ClienteController extends Controller
         $cliente->departamento = $request['departamento'];
         $cliente->tipo = $request['tipo'];
         $cliente->habilitado = $request['habilitado'];
+        $cliente->lunes = $request['lunes'];
+        $cliente->martes = $request['martes'];
+        $cliente->miercoles = $request['miercoles'];
+        $cliente->jueves = $request['jueves'];
+        $cliente->viernes = $request['viernes'];
+        $cliente->sabado = $request['sabado'];
+        $cliente->domingo = $request['domingo'];
         $cliente->save();
-
-
-        $dias= Dia::where('cliente_id','=',$id)->first();
-        $dias->lunes = $request['lunes'];
-        $dias->martes = $request['martes'];
-        $dias->miercoles = $request['miercoles'];
-        $dias->jueves = $request['jueves'];
-        $dias->viernes = $request['viernes'];
-        $dias->sabado = $request['sabado'];
-        $dias->domingo = $request['domingo'];
-        $dias->save();
-
-
-   
 
 
         //le manda un mensaje al usuario

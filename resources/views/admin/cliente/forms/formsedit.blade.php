@@ -94,7 +94,7 @@
 	<div class="form-group col-xs-12 col-sm-12 col-md-4">
 	<div class="input-group input-icon right">
  	<span class="input-group-addon"><i class="fa fa-money font-red"> Tipo De Pago :</i></span>
-	{!! Form::select('tipo', config('options.tipodepago'),'', array('class' => 'form-control')) !!}
+	{!! Form::select('tipo', config('options.tipodepago'),$cliente->tipo, array('class' => 'form-control')) !!}
 	</div>
 	</div>
 

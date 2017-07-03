@@ -342,17 +342,28 @@ Route::delete('provedor-destroy/{id}','ProvedoreController@destroy');
 
 
 
+
+
+
+
+
+
+
+
 Route::get('cliente','ClienteController@index');
 Route::get('cliente-mensuales','ClienteController@mensuales');
 Route::get('cliente-quincenales','ClienteController@quincenales');
-Route::get('cliente-ver-{id}','ClienteController@ver');
-
-Route::get('cliente-crear-pago','ClienteController@ver');
 Route::get('cliente-create','ClienteController@create');
 Route::post('cliente-store','ClienteController@store');
 Route::put('cliente-update/{id}','ClienteController@update');
 Route::delete('cliente-destroy/{id}','ClienteController@destroy');
 
+
+Route::get('factura-ver-{id}','FacturaController@index');
+Route::post('factura-cambiar-status/{id}','FacturaController@cambiarStatus');
+Route::post('factura-store-{id}','FacturaController@store');
+Route::put('factura-update/{id}','FacturaController@update');
+Route::delete('factura-destroy/{id}','FacturaController@destroy');
 
 
 Route::get('precio','PrecioController@index');
@@ -360,6 +371,20 @@ Route::get('precio-ver-{id}','PrecioController@ver');
 Route::post('precio-store','PrecioController@store');
 Route::put('precio-update/{id}','PrecioController@update');
 Route::delete('precio-destroy/{id}','PrecioController@destroy');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 Route::get('gasto','GastoController@index');
