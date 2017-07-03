@@ -21,7 +21,7 @@
 
 
 <!--buscador-->
-{!!Form::open(['url'=>'listar-venta', 'method'=>'GET' , 'class'=>'navbar-form navbar-left' , 'role'=>'Search'])!!}
+{!!Form::open(['url'=>'factura-ver-'.$cliente->id, 'method'=>'GET' , 'class'=>'navbar-form navbar-left' , 'role'=>'Search'])!!}
 <div class="form-group">
 
 

@@ -37,7 +37,16 @@ class FacturaController extends Controller
        $cliente = Cliente::find($id);
 
        //que me traiga las facturas de ese cliente
-        $facturas = Factura::where('cliente_id','=',$cliente->id)->get();
+        $facturas = Factura::where('cliente_id','=',$cliente->id)->paginate(3);
+
+         /*buscador*/
+        $fechai=$request->input('fecha_inicio');
+        $fechaf=$request->input('fecha_final');
+        if (!empty($fechai) and !empty($fechaf)) {
+            $facturas = Factura::where('desde', '>=' , $fechai)->where('hasta', '<=', $fechaf)->paginate(50);
+        }
+        /*buscador*/
+
         
        // $dtToronto = Carbon::createFromDate(2017, 6, 12, 'America/Toronto');
         //dd($dtToronto->between($facturas->desde, $facturas->hasta));
@@ -66,7 +75,6 @@ class FacturaController extends Controller
 
         $facturas = Factura::where('cliente_id','=',$id)->first();
         $cliente = Cliente::find($id);
-        $dias = Dia::where('cliente_id','=',$id)->first();
         $precios = Precio::first();
 
 
@@ -79,30 +87,30 @@ class FacturaController extends Controller
         $domingo = 0;
 
 
-        if ($dias->lunes == 1) {
+        if ($cliente->lunes == 1) {
             $lunes = $precios->lunes;
         }
 
-        if ($dias->martes == 1) {
+        if ($cliente->martes == 1) {
             $martes = $precios->martes;
         }
 
-        if ($dias->miercoles == 1) {
+        if ($cliente->miercoles == 1) {
             $miercoles = $precios->miercoles;
         }
 
-        if ($dias->jueves == 1) {
+        if ($cliente->jueves == 1) {
             $jueves = $precios->jueves;
         }
 
-        if ($dias->viernes == 1) {
+        if ($cliente->viernes == 1) {
             $viernes = $precios->viernes;
         }
 
-        if ($dias->sabado == 1) {
+        if ($cliente->sabado == 1) {
             $sabado = $precios->sabado;
         }
-        if ($dias->domingo == 1) {
+        if ($cliente->domingo == 1) {
             $domingo = $precios->domingo;
         }
         

@@ -40,8 +40,7 @@ class ClienteController extends Controller
         //lo que ingresamos en el buscador lo alamacenamos en $usu_nombre
         $nombre=$request->input('nombre');
         
-        $clientes = DB::table('dias')
-        ->join('clientes', 'dias.cliente_id', '=', 'clientes.id')->paginate(10);
+        
 
         //preguntamos que si ($usu_nombre no es vacio
         if (!empty($nombre)) {
@@ -56,7 +55,7 @@ class ClienteController extends Controller
             $clientes->where('direccion','LIKE','%'.$direccion.'%');
         }   
 
-        //$clientes = $clientes->paginate(10);
+        $clientes = $clientes->paginate(10);
 
         //dd($clientes);
         //realizamos la paginacion
@@ -79,10 +78,12 @@ class ClienteController extends Controller
     {
 
 
-        $clientes=cliente::orderBy('nombre');
+         $clientes=cliente::orderBy('nombre');
         //lo que ingresamos en el buscador lo alamacenamos en $usu_nombre
         $nombre=$request->input('nombre');
-     
+        
+        
+
         //preguntamos que si ($usu_nombre no es vacio
         if (!empty($nombre)) {
             //entonces me busque de usu_nombre a el nombre que le pasamos atraves de $usu_nombre
@@ -90,15 +91,14 @@ class ClienteController extends Controller
         }   
 
         //busqueda por email
-        $email=$request->input('email');
-        if (!empty($email)) {
+        $direccion=$request->input('direccion');
+        if (!empty($direccion)) {
             //entonces me busque de usu_nombre a el nombre que le pasamos atraves de $usu_nombre
-            $clientes->where('email','LIKE','%'.$email.'%');
+            $clientes->where('direccion','LIKE','%'.$direccion.'%');
         }
 
         //realizamos la paginacion
-         $clientes = DB::table('dias')
-        ->join('clientes', 'dias.cliente_id', '=', 'clientes.id')->paginate(10);
+          $clientes = $clientes->paginate(10);
 
 
         $link = "clientes";
@@ -114,10 +114,12 @@ class ClienteController extends Controller
     public function quincenales(Request $request)
     {
 
-        $clientes=cliente::orderBy('nombre');
+         $clientes=cliente::orderBy('nombre');
         //lo que ingresamos en el buscador lo alamacenamos en $usu_nombre
         $nombre=$request->input('nombre');
-     
+        
+        
+
         //preguntamos que si ($usu_nombre no es vacio
         if (!empty($nombre)) {
             //entonces me busque de usu_nombre a el nombre que le pasamos atraves de $usu_nombre
@@ -125,15 +127,14 @@ class ClienteController extends Controller
         }   
 
         //busqueda por email
-        $email=$request->input('email');
-        if (!empty($email)) {
+        $direccion=$request->input('direccion');
+        if (!empty($direccion)) {
             //entonces me busque de usu_nombre a el nombre que le pasamos atraves de $usu_nombre
-            $clientes->where('email','LIKE','%'.$email.'%');
+            $clientes->where('direccion','LIKE','%'.$direccion.'%');
         }
 
         //realizamos la paginacion
-         $clientes = DB::table('dias')
-        ->join('clientes', 'dias.cliente_id', '=', 'clientes.id')->paginate(10);
+          $clientes = $clientes->paginate(10);
 
 
         $link = "clientes";
@@ -160,21 +161,13 @@ class ClienteController extends Controller
 
 
 
-    public function ver(Request $request,$id)
-    {   
-        $link = "clientes";
-       $cliente = Cliente::find($id);
-        return view('admin.cliente.ver',compact('cliente','link'));
-    }
 
 
     public function store(ClienteCreateRequest $request)
     {   
 
         $cliente = cliente::create($request->all());
-
         Alert::success('Mensaje existoso', 'Cliente Creado Correctamente');
-         
         return Redirect::back();
 
         
