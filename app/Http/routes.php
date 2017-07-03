@@ -352,7 +352,15 @@ Route::get('cliente-create','ClienteController@create');
 Route::post('cliente-store','ClienteController@store');
 Route::put('cliente-update/{id}','ClienteController@update');
 Route::delete('cliente-destroy/{id}','ClienteController@destroy');
-Route::get('cliente-crear-usuario/{id}','ClienteController@CrearUsuario');
+
+
+
+Route::get('precio','PrecioController@index');
+Route::get('precio-ver-{id}','PrecioController@ver');
+Route::post('precio-store','PrecioController@store');
+Route::put('precio-update/{id}','PrecioController@update');
+Route::delete('precio-destroy/{id}','PrecioController@destroy');
+
 
 Route::get('gasto','GastoController@index');
 Route::get('gasto-create','GastoController@create');

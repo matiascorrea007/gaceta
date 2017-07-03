@@ -4,14 +4,14 @@
      <div class="modal-content">
          <div class="modal-header">
              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-              <h4 class="modal-title">Editar Cliente {{ $cliente->clie_nombres }}</h4>
+              <h4 class="modal-title">Editar Cliente {{ $cliente->nombre }}</h4>
          </div>
 
 
 {!!Form::model($cliente,['url'=>['cliente-update',$cliente->id],'method'=>'PUT'])!!}
 
 <div class="modal-body">      
-@include('admin.cliente.forms.formscreate')
+@include('admin.cliente.forms.formsedit')
 </div>
 
 <div class="modal-footer">

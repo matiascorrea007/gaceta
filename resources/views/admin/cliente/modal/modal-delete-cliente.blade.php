@@ -7,7 +7,7 @@
               <h4 class="modal-title">Confirm Cliente Deletion</h4>
          </div>
          <div class="modal-body">
-             <p>Esta seguro que desea eliminar al Cliente {{ $cliente->clie_nombres }}?</p>
+             <p>Esta seguro que desea eliminar al Cliente {{ $cliente->nombre }}?</p>
          </div>
          <div class="modal-footer">
              <button type="button" class="btn btn-primary pull-left" data-dismiss="modal">Close</button>

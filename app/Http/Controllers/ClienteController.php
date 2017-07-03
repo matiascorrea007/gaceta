@@ -9,6 +9,7 @@ use Soft\Http\Requests\ClienteUpdateRequest;
 
 
 use Soft\Cliente;
+use Soft\Precio;
 use Session;
 use Redirect;
 use Soft\Http\Requests;
@@ -53,14 +54,19 @@ class ClienteController extends Controller
         }
 
         //realizamos la paginacion
-        $clientes=$clientes->paginate(50);
+    
+         $clientes = DB::table('dias')
+        ->join('clientes', 'dias.cliente_id', '=', 'clientes.id')->paginate(10);
+      
+        //dd($clientes);
+
         $link = "clientes";
         $count = cliente::where('tipo','=','semanal')->count();
-
+        $precios = Precio::first();
       
        //$clientee = Cliente::find(8);
       // dd($clientee->created_at->addweeks(1));
-        return view('admin.cliente.index',compact('link','clientes','count'));
+        return view('admin.cliente.index',compact('link','clientes','count','precios'));
     }
 
     
@@ -200,11 +206,36 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ClienteUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $cliente=cliente::find($id);
-       $cliente->fill($request->all());
-       $cliente->save();
+        $cliente= Cliente::find($id);
+
+        $cliente->nombre = $request['nombre'];
+        $cliente->apellido = $request['apellido'];
+        $cliente->razonsocial = $request['razonsocial'];
+        $cliente->telefono = $request['telefono'];
+        $cliente->email = $request['email'];
+        $cliente->cuit = $request['cuit'];
+        $cliente->direccion = $request['direccion'];
+        $cliente->departamento = $request['departamento'];
+        $cliente->tipo = $request['tipo'];
+        $cliente->habilitado = $request['habilitado'];
+        $cliente->save();
+
+
+        $dias= Dia::where('cliente_id','=',$id)->first();
+        $dias->lunes = $request['lunes'];
+        $dias->martes = $request['martes'];
+        $dias->miercoles = $request['miercoles'];
+        $dias->jueves = $request['jueves'];
+        $dias->viernes = $request['viernes'];
+        $dias->sabado = $request['sabado'];
+        $dias->domingo = $request['domingo'];
+        $dias->save();
+
+
+   
+
 
         //le manda un mensaje al usuario
       Alert::success('Mensaje existoso', 'Cliente Modificado Exitosamente');

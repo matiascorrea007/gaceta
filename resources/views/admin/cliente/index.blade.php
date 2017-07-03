@@ -46,6 +46,8 @@
        <div class="btn-group btn-group-devided" >
 
           <button type="button" class="btn btn-success" data-toggle="modal" data-target="#crear-cliente"><i class="fa fa-plus fa-lg"></i></button>
+
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#precios"><i class="fa fa-money fa-lg"></i> Precios</button>
   		
        </div>
    </div>
@@ -97,9 +99,7 @@
  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDelete-{{ $cliente->id }}"><i class="fa fa-trash-o"></i></button>
 @endif
 
-@if($cliente->user_id == null)
-<a href="{!! URL::to('cliente-crear-usuario/'.$cliente->id) !!}" class="btn btn-success"><i class="fa fa-user"> Crar Usuario</i></a>
-@endif
+
 </td>
 
 	</tbody>
@@ -121,6 +121,8 @@
  @include('admin.cliente.modal.modal-ver-cliente')
  <!--modal crear cliente-->
  @include('admin.cliente.modal.modal-crear-cliente')
+ <!--modal Precios-->
+ @include('admin.cliente.modal.modal-precios')
 
 
 <!--para renderizar la paginacion-->
