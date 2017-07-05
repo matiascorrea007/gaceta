@@ -18,6 +18,7 @@ use Soft\Reparacione;
 use Soft\Presupuesto;
 use Soft\Compra;
 use Soft\Cliente;
+use Soft\Factura;
 class User extends Authenticatable
 {
     //el uso del soft delete
@@ -88,10 +89,10 @@ public function presupuesto()
     }
 
 
-public function venta()
+public function factura()
     {
-        //un usuario puede tener muchas ventas
-       return $this->hasMany(Venta::class);
+        //un usuario puede tener muchas facturas
+       return $this->hasMany(Factura::class);
     }
 
 public function compra()

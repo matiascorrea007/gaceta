@@ -1,5 +1,5 @@
 <!-- BEGIN THEME PANEL -->
-                    <div class="theme-panel">
+               <!--     <div class="theme-panel">
                         <div class="toggler tooltips" data-container="body" data-placement="left" data-html="true" data-original-title="Click to open advance theme customizer panel">
                             <i class="icon-settings"></i>
                         </div>
@@ -75,7 +75,7 @@
                             </div>
                         </div>
                     </div>
-<!-- END THEME PANEL -->
+ END THEME PANEL -->
 
 
 
@@ -86,166 +86,14 @@
                         <small></small>
                     </h1>
                     <div class="page-bar">
-                        <ul class="page-breadcrumb">
-                            <li>
-                                <i class="icon-home"></i>
-                                <a href="{{ url('admin') }}" >Home</a>
-                                <i class="fa fa-angle-right"></i>
-                            </li>
-                            <li>
-                            @if($link == "deshboard")
-                            <span>Dashboard</span>
 
-                            @elseif($link == "logo")
-                            <span>Logo</span>
-
-                            @elseif($link == "newsletter")
-                            <span>Newsletter</span>
-
-                            @elseif($link == "skin")
-                            <span>Skin</span>
-
-                            @elseif($link == "Sistema de Puntos")
-                            <span>Sistema de Puntos</span>
-
-                            @elseif($link == "carrucel")
-                            <span>Carrucel</span>
-
-                            @elseif($link == "categorias")
-                            <span>Categorias y Subcategorias</span>
-
-                             @elseif($link == "usuarios")
-                            <span>usuarios</span>
-
-                            @elseif($link == "clientes")
-                            <span>clientes</span>
-
-                            @elseif($link == "ticket")
-                            <span>Ticket</span>
-
-                            @elseif($link == "provedores")
-                            <span>provedores</span>
-
-                            @elseif($link == "transportes")
-                            <span>transportes</span>
-
-                            @elseif($link == "marcas")
-                            <span>marcas</span>
-
-                            @elseif($link == "ivatipo")
-                            <span>ivatipo</span>
-
-                            @elseif($link == "post")
-                            <span>post</span>
-
-                            @elseif($link == "servicio tecnico")
-                            <span>servicio tecnico</span>
-
-                            @elseif($link == "gastos")
-                            <span>Gastos</span>
-
-                            @elseif($link == "pagos")
-                            <span>Pagos</span>
-
-                             @elseif($link == "reportes")
-                            <span>Reportes</span>
-
-                            @elseif($link == "backup")
-                            <span>Backup</span>
-
-                            @elseif($link == "graficas")
-                            <span>Graficas</span>
-
-                            @elseif($link == "footer")
-                            <span>Footer</span>
+                    
+                    @yield('links')
+                        
 
 
 
-
-                            @elseif($link == "productos")
-                            <span>productos</span>
-
-                            @elseif($link == "productos combo")
-                            <span>productos Combo</span>
-
-                            @elseif($link == "productos combo")
-                            <a href="{{ url('producto') }}" >Productos</a>
-                            <i class="fa fa-angle-right"></i>
-                            <span>Productos Combos</span>
-
-                            @elseif($link == "productos oferta")
-                            <a href="{{ url('producto') }}" >Productos</a>
-                            <i class="fa fa-angle-right"></i>
-                            <span>Productos Oferta</span>
-
-                             @elseif($link == "productos stock critico")
-                            <a href="{{ url('producto') }}" >Productos</a>
-                            <i class="fa fa-angle-right"></i>
-                            <span>Productos stock critico</span>
-
-                            @elseif($link == "productos desabilitados")
-                            <a href="{{ url('producto') }}" >Productos</a>
-                            <i class="fa fa-angle-right"></i>
-                            <span>Productos desabilitados</span>
-
-                            @elseif($link == "productos review")
-                            <a href="{{ url('producto') }}" >Productos</a>
-                            <i class="fa fa-angle-right"></i>
-                            <span>Productos review</span>
-
-                            @elseif($link == "productos codigos")
-                            <a href="{{ url('producto') }}" >Productos</a>
-                            <i class="fa fa-angle-right"></i>
-                            <span>Codigos de barras</span>
-
-
-
-
-                             @elseif($link == "compras")
-                            <span>compras</span>
-
-                            @elseif($link == "compras listar")
-                            <a href="{{ url('compra-show') }}" >Compras</a>
-                            <i class="fa fa-angle-right"></i>
-                            <span>Compras Listar</span>
-
-
-
-
-
-
-                            @elseif($link == "ventas")
-                            <span>ventas</span>
-
-                             @elseif($link == "listar ventas")
-                            <a href="{{ url('venta-show') }}" >Ventas</a>
-                            <i class="fa fa-angle-right"></i>
-                            <span>listar ventas</span>
-
-                            @elseif($link == "listar ventas web")
-                            <a href="{{ url('venta-show') }}" >Ventas</a>
-                            <i class="fa fa-angle-right"></i>
-                            <span>Listar ventas Web</span>
-
-
-
-                            @elseif($link == "presupuesto")
-                            <span>Presupuestos</span>
-
-                            @elseif($link == "presupuesto listar")
-                            <a href="{{ url('presupuesto-show') }}" >Presupuestos</a>
-                            <i class="fa fa-angle-right"></i>
-                            <span>Presupuesto listar</span>
-
-
-                           
-
-                           
-
-                            @endif
-                            </li>
-                        </ul>
-                        <div class="page-toolbar">
+               <!--        <div class="page-toolbar">
                             <div class="btn-group pull-right">
                                 <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true"> Actions
                                     <i class="fa fa-angle-down"></i>
@@ -270,6 +118,6 @@
                                     </li>
                                 </ul>
                             </div>
-                        </div>
+                        </div>--> 
                     </div>
                     <!-- END PAGE HEADER-->

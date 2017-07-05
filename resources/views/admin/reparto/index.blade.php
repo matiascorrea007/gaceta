@@ -2,13 +2,29 @@
 @section('content')
 @include('flash::message')
 
+
+@section('links')
+<ul class="page-breadcrumb">
+     <li>
+         <i class="icon-home"></i>
+         <a href="{{ url('reparto') }}" >Reparto</a>
+         <i class="fa fa-angle-right"></i>
+     </li>
+ </ul>
+@endsection
+
+
+
+
+
 <div class="row">
     <div class="col-md-12">
     <div class="portlet light ">
         <div class="portlet-title">
             <div class="caption">
 
-<i class="icon-user font-red"></i>
+<i class="fa fa-bicycle font-red" aria-hidden="true"></i>
+
 <span class="caption-subject font-red sbold uppercase">Seccion de Clientes</span>
 @include('alerts.request')
 @include('alerts.success')
@@ -35,22 +51,24 @@
 
 
 
-   <!-- <div class="actions">
+    <div class="actions">
        <div class="btn-group btn-group-devided" >
-
-          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#crear-cliente"><i class="fa fa-plus fa-lg"></i></button>
-
-          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#precios"><i class="fa fa-money fa-lg"></i> Precios</button>
-  		
+	
+		@if(!empty($fechaingresada))
+      <a class="btn btn-success" href="{!! URL::to('reparto-export-'.$fechaingresada) !!}">
+      <i class="fa  fa-file-excel-o fa-lg"></i> exportar</a>
+  		@endif
        </div>
-   </div>-->
+   </div>
 
 
         </div><!--portlet-title-->
     <div class="portlet-body">
-    <div class="col-md-3"></div>
-    <div class="col-md-6"><h1>El reparto par el dias <strong style="color:red;">{{$dia}}</strong> es</h1></div>
-    <div class="col-md-3"></div>
+    <div class="col-md-2"></div>
+    @if(!empty($dia))
+    <div class="col-md-8"><h1>El reparto par el dias <strong style="color:red;">{{$dia}}</strong> es</h1></div>
+    @endif
+    <div class="col-md-2"></div>
         <div class="table-scrollable">
 
             <table id="example2" class="table table-hover table-light">
@@ -67,6 +85,7 @@
 		<th>Tipo de Pago</th>
 		<th class="col-md-4">Operaciones</th>
 	</thead>
+	@if(!empty($clientes))
 	@foreach($clientes as $cliente)
 	<tbody>
 	<!-- -->
@@ -85,6 +104,7 @@
 
 	</tbody>
 	@endforeach
+	@endif
 	</table>
                     </div>
                 </div>

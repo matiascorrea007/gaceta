@@ -1,10 +1,13 @@
 <?php
 
 namespace Soft;
-
+use Carbon\Carbon; 
 use Illuminate\Database\Eloquent\Model;
 use Soft\Presupuesto;
 use Soft\Factura;
+use DB;
+use Storage;
+
 
 
 class Cliente extends Model
@@ -41,8 +44,8 @@ public function presupuesto()
 
 public function factura()
     {
-        //un cliente puede tener muchas ventas
-       return $this->hasMany(Factura::class);
+        //un cliente puede tener muchas facturas
+       return $this->hasMany(Factura::class,'cliente_id');
     }
 
 

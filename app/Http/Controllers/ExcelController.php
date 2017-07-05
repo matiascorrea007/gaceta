@@ -3,11 +3,26 @@
 namespace Soft\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
-use Excel;
-use Soft\User;
 use Soft\Http\Requests;
-use Illuminate\Support\Facades\Input;
+
+
+
+use Carbon\Carbon;
+use Soft\Cliente;
+use Soft\Precio;
+use Session;
+use Redirect;
+use Alert;
+use Soft\User;
+use Soft\Dia;
+use DB;
+use Flash;
+use Storage;
+use Image;
+use Auth;
+use Input;
+use Excel;
+
 
 class ExcelController extends Controller
 {
@@ -40,7 +55,47 @@ class ExcelController extends Controller
 
 
 
+    public function repartoExport(Request $request,$fecha){
+     
+      $fechaingresada = Carbon::parse($fecha);
 
+       //pregunto que si la fecha ingresada es lunes entonces me devuelva el reparto del lunes                  
+           if ($fechaingresada->dayOfWeek == Carbon::MONDAY) {
+               $export = Cliente::where('lunes','=',1)->get();
+           } 
+
+           if ($fechaingresada->dayOfWeek == Carbon::TUESDAY) {
+               $export = Cliente::where('martes','=',1)->get();
+           } 
+
+           if ($fechaingresada->dayOfWeek == Carbon::WEDNESDAY) {
+               $export = Cliente::where('miercoles','=',1)->get();
+           } 
+
+           if ($fechaingresada->dayOfWeek == Carbon::THURSDAY) {
+               $export = Cliente::where('jueves','=',1)->get();
+           } 
+
+           if ($fechaingresada->dayOfWeek == Carbon::FRIDAY) {
+               $export = Cliente::where('viernes','=',1)->get();
+           } 
+
+           if ($fechaingresada->dayOfWeek == Carbon::SATURDAY) {
+               $export = Cliente::where('sabado','=',1)->get();
+           } 
+           if ($fechaingresada->dayOfWeek == Carbon::SUNDAY) {
+               $export = Cliente::where('domingo','=',1)->get();
+           }   
+
+
+                
+        Excel::create('Clientes export',function($excel) use($export){
+            $excel->sheet('clientes',function($sheet) use($export){
+                $sheet->fromArray($export);
+            });
+        })->export('xlsx');
+         return Redirect::back();
+    }
 
 
 

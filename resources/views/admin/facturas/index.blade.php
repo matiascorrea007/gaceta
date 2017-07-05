@@ -8,18 +8,9 @@
 <ul class="page-breadcrumb">
     <li>
         <i class="icon-home"></i>
-        <a href="{{ url('cliente') }}" >Clientes</a>
+        <a href="#" >Todas las Factuas</a>
         <i class="fa fa-angle-right"></i>
     </li>
-    <li>
-    <a href="#" >{{$cliente->tipo}}</a>
-        <i class="fa fa-angle-right"></i>
-        </li>
-
-    <li>
-    <a href="#" >Facturas</a>
-        <i class="fa fa-angle-right"></i>
-        </li>
 </ul>
 @endsection
 
@@ -31,41 +22,31 @@
         <div class="portlet-title">
             <div class="caption">
 
-<i class="icon-user font-red"></i>
-<span class="caption-subject font-red sbold uppercase">Clientes ({{$cliente->nombre}} {{$cliente->apellido}})</span>
+<i class="icon-calculator font-red"></i>
+<span class="caption-subject font-red sbold uppercase">Todas las Facturas</span>
 @include('alerts.request')
 @include('alerts.success')
 
     <div><br>
     </div>
 
-
-
-
-
-<!--buscador-->
-{!!Form::open(['url'=>'factura-ver-'.$cliente->id, 'method'=>'GET' , 'class'=>'navbar-form navbar-left' , 'role'=>'Search'])!!}
-<div class="form-group">
-
-
-<i class="fa fa-calendar"></i>
-{!!Form::label('Fecha Inicial')!!}
-{!!Form::text('fecha_inicio',null,['class'=>'form-control','id'=>'datepicker','placeholder'=>'Fecha de Inicio'])!!}
-
-<i class="fa fa-calendar"></i>
-{!!Form::label('Fecha Final')!!}
-{!!Form::text('fecha_final',null,['class'=>'form-control','id'=>'datepicker2','placeholder'=>'Fecha de Fin'])!!}
-
- <button type="submit" class="glyphicon glyphicon-search btn btn-success"> BUSCAR </button>
+<div class="box-body">
+<ul class="nav nav-tabs">
+  <li class="active"><a href="{{ url('todas-las-facturas') }}">Todas las Facturas ({{$count}})</a></li>
+  <li><a href="{{ url('facturas-pagadas') }}">Facturas Pagadas</a></li>
+  <li><a href="{{ url('facturas-pendientes') }}">Facturas Pendientes</a></li>
+</ul>
 </div>
-{!!Form::close()!!}
- <!--endbuscador-->
+
+
+
+
 
      </div><!--end caption-->
 
 
 
-
+<!--
     <div class="actions">
        <div class="btn-group btn-group-devided" >
 
@@ -73,7 +54,7 @@
   		
        </div>
    </div>
-
+-->
 
         </div><!--portlet-title-->
     <div class="portlet-body">
@@ -82,9 +63,13 @@
 	<thead>
 		
 		<th>#</th>
+    <th>nombre</th>
+    <th>apellido</th>
+    <th>direccion</th>
+    <th>N* depto</th>
 		<th>Desde</th>
 		<th>hasta</th>
-    <th>Cantidad a Entregar</th>
+    <th>Cantidad a entregar</th>
 		<th>Total</th>
 		<th>Estado</th>
 		
@@ -96,6 +81,10 @@
 	<tbody>
 	<!-- -->
 	<td>{{ $factura -> id}}</td>
+  <td>{{$factura ->cliente-> nombre}}</td>
+  <td>{{ $factura ->cliente-> apellido}}</td>
+  <td>{{ $factura ->cliente-> direccion}}</td>
+  <td>{{ $factura ->cliente-> departamento}}</td>
 	<td>{{ $factura -> desde}}</td>
 	<td>{{ $factura -> hasta}}</td>
   <td>{{ $factura -> cantidad}}</td>
@@ -141,11 +130,9 @@
 
 
 
- <!--modal crear pago-->
- @include('admin.cliente.modal.modal-crear-factura')
+
   <!--modal eliminar factura-->
 @include('admin.cliente.modal.modal-delete-factura')
-
  <!--modal status factura-->
 @include('admin.cliente.modal.modal-status')
                           

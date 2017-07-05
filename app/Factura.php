@@ -5,7 +5,7 @@ namespace Soft;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Soft\Cliente;
-
+use Soft\User;
 
 class Factura extends Model
 {
@@ -17,6 +17,7 @@ class Factura extends Model
             'hasta',
             'pago_tipo',
             'comentario',
+            'cantidad',
             'total',
             'status',
     ];
@@ -31,9 +32,14 @@ class Factura extends Model
 
     public function cliente()
     {
-      //una venta corresponde a un cliente
+      //una factura corresponde a un cliente
         return $this->belongsTo(Cliente::class);
     }
 
+     public function user()
+    {
+      //una factura corresponde a un cliente
+        return $this->belongsTo(User::class);
+    }
 
 }

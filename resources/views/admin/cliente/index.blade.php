@@ -2,6 +2,23 @@
 @section('content')
 @include('flash::message')
 
+
+@section('links')
+<ul class="page-breadcrumb">
+    <li>
+        <i class="icon-home"></i>
+        <a href="{{ url('cliente') }}" >Clientes</a>
+        <i class="fa fa-angle-right"></i>
+    </li>
+    <li>
+		<a href="{{ url('cliente') }}" >Semanales</a>
+        <i class="fa fa-angle-right"></i>
+        </li>
+</ul>
+@endsection
+
+
+
 <div class="row">
     <div class="col-md-12">
     <div class="portlet light ">

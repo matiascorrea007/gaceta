@@ -13,7 +13,7 @@
                     <ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-hover-submenu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
 
 
-                        <li class="nav-item start active open">
+                    <!--     <li class="nav-item start active open">
                             <a href="{{ url('admin') }}" class="nav-link nav-toggle">
                                 <img height="40"  width="40" src="storage/icono admin/home.svg">
                                 <span class="title">Home</span>
@@ -22,7 +22,7 @@
                             </a>
                         </li>
 
-                    <!--    <li class="nav-item  ">
+                       <li class="nav-item  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <img height="40"  width="40" src="storage/icono admin/config.svg">
                                 <span class="title">Config</span>
@@ -96,12 +96,12 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>-->
+                        </li>
 
 
 
 
-                        <li class="nav-item  ">
+                         <li class="nav-item  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <img height="40"  width="40" src="storage/icono admin/venta.svg">
                                 <span class="title">Ventas</span>
@@ -123,7 +123,7 @@
 
 
 
-              <!--          <li class="nav-item  ">
+                      <li class="nav-item  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <img height="40"  width="40" src="storage/icono admin/presupuesto.svg"> 
                                 <span class="title">Presupuestos</span>
@@ -142,11 +142,11 @@
                                 </li>
                             </ul>
                         </li>
-            -->
+            
 
 
 
-                        <li class="nav-item  ">
+                       <li class="nav-item  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <img height="40"  width="40" src="storage/icono admin/compra.svg">
                                 <span class="title">Compras</span>
@@ -167,7 +167,7 @@
                         </li>
 
 
-                   <!--     <li class="nav-item  ">
+                        <li class="nav-item  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <img height="40"  width="40" src="storage/icono admin/liquidaciones.svg"> 
                                 <span class="title">Liquidaciones</span>
@@ -185,7 +185,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li> -->
+                        </li> 
 
 
                         <li class="nav-item  ">
@@ -230,7 +230,7 @@
                         </li>
 
                            
-                <!--        <li class="nav-item  ">
+                       <li class="nav-item  ">
                             <a href="{!! URL::to('tickets/') !!}" class="nav-link nav-toggle">
                                 <img height="40"  width="40" src="storage/icono admin/ticket.svg">
                                 <span class="title">tickets</span>
@@ -245,7 +245,7 @@
                                 <span class="arrow"></span>
                             </a>
                         </li>
-                -->
+                
 
                          <li class="nav-item  ">
                             <a href="{!! URL::to('usuario/') !!}" class="nav-link nav-toggle">
@@ -253,7 +253,7 @@
                                 <span class="title">Usuarios</span>
                                 <span class="arrow"></span>
                             </a>
-                        </li>
+                        </li>-->
 
                      
                      
@@ -269,6 +269,14 @@
                             <a href="{!! URL::to('reparto/') !!}" class="nav-link nav-toggle">
                                 <img height="40"  width="40" src="storage/icono admin/reparto.svg">
                                 <span class="title">Reparto</span>
+                                <span class="arrow"></span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item  ">
+                            <a href="{!! URL::to('todas-las-facturas/') !!}" class="nav-link nav-toggle">
+                                <img height="40"  width="40" src="storage/icono admin/presupuesto.svg">
+                                <span class="title">Facturas</span>
                                 <span class="arrow"></span>
                             </a>
                         </li>

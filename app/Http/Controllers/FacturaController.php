@@ -73,7 +73,8 @@ class FacturaController extends Controller
     public function store(Request $request,$id)
     {   
 
-        $facturas = Factura::where('cliente_id','=',$id)->first();
+        //$facturas = Factura::where('cliente_id','=',$id)->first();
+        //dd($facturas);
         $cliente = Cliente::find($id);
         $precios = Precio::first();
 
@@ -86,37 +87,53 @@ class FacturaController extends Controller
         $sabado = 0;
         $domingo = 0;
 
+        $cantLunes = 0;
+        $cantMartes = 0;
+        $cantMiercoles = 0;
+        $cantJueves = 0;
+        $cantViernes = 0;
+        $cantSabado = 0;
+        $cantDomingo = 0;
 
+        //si mi cliente tiene el dias lunes para reparto que me traiga el precio del lunes de la gaceta
         if ($cliente->lunes == 1) {
             $lunes = $precios->lunes;
+            $cantLunes = 1;
         }
 
         if ($cliente->martes == 1) {
             $martes = $precios->martes;
+            $cantMartes = 1;
         }
 
         if ($cliente->miercoles == 1) {
             $miercoles = $precios->miercoles;
+            $cantMiercoles = 1;
         }
 
         if ($cliente->jueves == 1) {
             $jueves = $precios->jueves;
+            $cantJueves = 1;
         }
 
         if ($cliente->viernes == 1) {
             $viernes = $precios->viernes;
+            $cantViernes = 1;
         }
 
         if ($cliente->sabado == 1) {
             $sabado = $precios->sabado;
+            $cantSabado = 1;
         }
         if ($cliente->domingo == 1) {
             $domingo = $precios->domingo;
+            $cantDomingo = 1;
         }
         
 
         if ($cliente->tipo == "semanal") {
             $total = $lunes + $martes + $miercoles + $jueves + $viernes + $sabado + $domingo;
+            $diarioTotal = $cantLunes + $cantMartes + $cantMiercoles + $cantJueves + $cantViernes + $cantSabado + $cantDomingo;
             $desde =  Carbon::parse($request['desde']);
             //le sumo 6 dias a mi fecha de incio de la facturacion (facturacion mensual)
             $hasta = $desde->addDay(6);
@@ -124,7 +141,9 @@ class FacturaController extends Controller
         }
 
         if ($cliente->tipo == "mensuales") {
+            //multiplco por 4 que son las 4 semanas del mes
             $total = ($lunes + $martes + $miercoles + $jueves + $viernes + $sabado + $domingo)*4;
+            $diarioTotal = ($cantLunes + $cantMartes + $cantMiercoles + $cantJueves + $cantViernes + $cantSabado + $cantDomingo)*4;
             $desde =  Carbon::parse($request['desde']);
             //le sumo 6 dias a mi fecha de incio de la facturacion (facturacion mensual)
             $hasta = $desde->addDay(29);
@@ -132,7 +151,9 @@ class FacturaController extends Controller
         }
 
         if ($cliente->tipo == "quincenales") {
+            //multiplco por 2 que son las 2 semanas de la quincena
             $total = ($lunes + $martes + $miercoles + $jueves + $viernes + $sabado + $domingo)*2;
+            $diarioTotal = ($cantLunes + $cantMartes + $cantMiercoles + $cantJueves + $cantViernes + $cantSabado + $cantDomingo)*2;
             $desde =  Carbon::parse($request['desde']);
             //le sumo 6 dias a mi fecha de incio de la facturacion (facturacion mensual)
             $hasta = $desde->addDay(13);
@@ -146,6 +167,7 @@ class FacturaController extends Controller
             'hasta'=>$hasta->toDateString(),
             'pago_tipo'=>$request['pago_tipo'],
             'comentario' =>$request['comentario'],
+            'cantidad'=>$diarioTotal,
             'total' =>$total,
             'status' =>"pendiente",
             ]);
@@ -232,18 +254,18 @@ class FacturaController extends Controller
 
     public function detalleFacturaPdf($tipo,$id){
         $vistaurl="admin.cliente.factura-detalle-pdf";
-        $facturas=Factura::find($id);
-        $logo = DB::table('web_logos')->first();
+        $factura=Factura::find($id);
 
-     return $this->crearPDF($logo,$facturas, $vistaurl,$tipo,$id);
+
+     return $this->crearPDF($factura, $vistaurl,$tipo,$id);
      
     }
 
-    public function crearPDF($logo,$facturas,$vistaurl,$tipo ,$id){
+    public function crearPDF($factura,$vistaurl,$tipo ,$id){
         
-        $data = $facturas;
+        //$data = $factura;
         $date = date('Y-m-d');
-        $view =  \View::make($vistaurl, compact('data','logo', 'date','id'))->render();
+        $view =  \View::make($vistaurl, compact('factura', 'date','id'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
 
@@ -253,6 +275,30 @@ class FacturaController extends Controller
        if($tipo==2){return $pdf->download('reporte.pdf'); }
      
     }
+
+
+
+
+
+    public function todasLasFacturas(){
+        $facturas = Factura::all();
+        $count = Factura::all()->count();
+        return view('admin.facturas.index',compact('facturas','count'));
+     }
+
+      public function facturasPagadas(){
+        $facturas = Factura::where('status','=','pagado')->get();
+        $count = Factura::where('status','=','pagado')->count();
+        return view('admin.facturas.listar.pagadas',compact('facturas','count'));
+     }
+
+
+      public function facturasPendientes(){
+        $facturas = Factura::where('status','=','pendiente')->get();
+        $count = Factura::where('status','=','pendiente')->count();
+        return view('admin.facturas.listar.pendientes',compact('facturas','count'));
+     }
+
 
 
 }

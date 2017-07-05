@@ -367,6 +367,12 @@ Route::put('factura-update/{id}','FacturaController@update');
 Route::delete('factura-destroy/{id}','FacturaController@destroy');
 Route::get('factura-detalle-pdf/{tipo}/{id}','FacturaController@detalleFacturaPdf');
 
+
+Route::get('todas-las-facturas','FacturaController@todasLasFacturas');
+Route::get('facturas-pagadas','FacturaController@facturasPagadas');
+Route::get('facturas-pendientes','FacturaController@facturasPendientes');
+
+
 Route::get('precio','PrecioController@index');
 Route::get('precio-ver-{id}','PrecioController@ver');
 Route::post('precio-store','PrecioController@store');
@@ -514,6 +520,8 @@ Route::get('/userImport','ExcelController@userImport');
 Route::post('/userImport','ExcelController@userImport');
 
 
+/*--------reparto --------*/
+Route::get('reparto-export-{fecha}','ExcelController@repartoExport');
 /*---------------Excel import/export ------------*/
 
 
