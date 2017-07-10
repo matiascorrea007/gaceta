@@ -70,6 +70,8 @@
        <div class="btn-group btn-group-devided" >
 
           <button type="button" class="btn btn-success" data-toggle="modal" data-target="#crear-factura">Generar Facturas<i class="fa fa-plus fa-lg"></i></button>
+
+
   		
        </div>
    </div>
@@ -82,6 +84,7 @@
 	<thead>
 		
 		<th>#</th>
+    <th>Selec.</th>
 		<th>Desde</th>
 		<th>hasta</th>
     <th>Cantidad a Entregar</th>
@@ -91,11 +94,30 @@
 
 		<th class="col-md-4">Operaciones</th>
 	</thead>
+  {!!Form::open(['url'=>'factura-detalle-seleccion-pdf/1', 'method'=>'POST' , 'class'=>'navbar-form navbar-left' , 'role'=>'Search'])!!}
+
 	@foreach($facturas as $factura)
 	 
 	<tbody>
 	<!-- -->
 	<td>{{ $factura -> id}}</td>
+
+  <td>
+
+
+<div class="md-checkbox-list">
+    <div class="mt-checkbox-list ">
+        <label class="mt-checkbox">
+        <input type="checkbox" value="{{$factura->id}}" id="checkbox1"  name="check{{$factura->id}}">
+          <span></span>
+        </label>
+    </div>
+</div>
+
+
+  </td>
+
+
 	<td>{{ $factura -> desde}}</td>
 	<td>{{ $factura -> hasta}}</td>
   <td>{{ $factura -> cantidad}}</td>
@@ -132,7 +154,14 @@
 
 	@endforeach
 	</table>
+
+
                     </div>
+
+                     <button type="submit" class="btn btn-danger" >Imprimir Seleccion<i class="fa fa fa-file-pdf-o"></i></button>
+
+  {!!Form::close()!!}
+
                 </div>
             </div>
             <!-- END SAMPLE TABLE PORTLET-->

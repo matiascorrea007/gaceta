@@ -15,41 +15,8 @@ class LoginController extends Controller
      
 
 
-      
-        
-    //total del carrito
-    private function total()
-    {
-      
-        $cart = \Session::get('cartweb');
-        $total = 0;
-        foreach($cart as $item){
-            $total += $item->precioventa * $item->quantity;
-        }
-        return $total;
-    }
-
-
-  public function CartCount(){
-        /*obtengo mi variable de session cart que cree y la almaceno en $cart */
-        $cart = \Session::get('cartweb');
-        //cuenta los item que hay en la session
-        $cartcount =  count($cart);
-
-        return $cartcount;
-    }
-
-
-
     public function logged(){
-         //llama a la funcion CartTotal
-        $cartcount = $this->CartCount();
-        //llama a la funcion total
-        $total = $this->total();
-
-
-         return view ('shop.logged',compact('total','cartcount'));
-
+         return Redirect::to('/cliente');
     }
 
 

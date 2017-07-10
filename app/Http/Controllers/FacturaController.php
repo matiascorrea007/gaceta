@@ -5,6 +5,8 @@ namespace Soft\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Soft\Http\Requests;
+use Illuminate\Support\Collection as Collection;
+
 
 use Carbon\Carbon;
 use Soft\Cliente;
@@ -254,18 +256,36 @@ class FacturaController extends Controller
 
     public function detalleFacturaPdf($tipo,$id){
         $vistaurl="admin.cliente.factura-detalle-pdf";
-        $factura=Factura::find($id);
-
-
-     return $this->crearPDF($factura, $vistaurl,$tipo,$id);
+        $facturas=Factura::find($id);
+     return $this->crearPDF($facturas, $vistaurl,$tipo);
      
     }
 
-    public function crearPDF($factura,$vistaurl,$tipo ,$id){
+    public function detalleSeleccionFacturaPdf(Request $request,$tipo){
+
+        $allfacturas =Factura::all();
+ 
+        foreach ($allfacturas as $fac) {
+            if ($fac->id == $request['check'.$fac->id]) {
+                $misfacturas[] = $fac;
+               
+            }
+        }
+
+
+        $facturas = Collection::make($misfacturas);
+
+        $vistaurl="admin.cliente.factura-detalle-pdf";
+
+     return $this->crearPDF($facturas, $vistaurl,$tipo);
+     
+    }
+
+    public function crearPDF($facturas,$vistaurl,$tipo){
         
         //$data = $factura;
         $date = date('Y-m-d');
-        $view =  \View::make($vistaurl, compact('factura', 'date','id'))->render();
+        $view =  \View::make($vistaurl, compact('facturas', 'date'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
 
