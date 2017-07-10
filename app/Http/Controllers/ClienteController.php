@@ -36,7 +36,7 @@ class ClienteController extends Controller
         
 
 
-        $clientes=cliente::orderBy('nombre');
+        $clientes=cliente::orderBy('direccion','asc');
         //lo que ingresamos en el buscador lo alamacenamos en $usu_nombre
         $nombre=$request->input('nombre');
         
@@ -55,7 +55,7 @@ class ClienteController extends Controller
             $clientes->where('direccion','LIKE','%'.$direccion.'%');
         }   
 
-        $clientes = $clientes->paginate(10);
+        $clientes = $clientes->paginate(100);
 
         //dd($clientes);
         //realizamos la paginacion
@@ -78,7 +78,7 @@ class ClienteController extends Controller
     {
 
 
-         $clientes=cliente::orderBy('nombre');
+         $clientes=cliente::orderBy('direccion','asc');
         //lo que ingresamos en el buscador lo alamacenamos en $usu_nombre
         $nombre=$request->input('nombre');
         
@@ -98,7 +98,7 @@ class ClienteController extends Controller
         }
 
         //realizamos la paginacion
-          $clientes = $clientes->paginate(10);
+          $clientes = $clientes->paginate(100);
 
 
         $link = "clientes";
@@ -114,7 +114,7 @@ class ClienteController extends Controller
     public function quincenales(Request $request)
     {
 
-         $clientes=cliente::orderBy('nombre');
+        $clientes=cliente::orderBy('direccion','asc');
         //lo que ingresamos en el buscador lo alamacenamos en $usu_nombre
         $nombre=$request->input('nombre');
         
@@ -134,7 +134,7 @@ class ClienteController extends Controller
         }
 
         //realizamos la paginacion
-          $clientes = $clientes->paginate(10);
+          $clientes = $clientes->paginate(100);
 
 
         $link = "clientes";
@@ -242,41 +242,6 @@ class ClienteController extends Controller
         return Redirect::to('/cliente');
     }
 
-
-public function CrearUsuario($id)
-    {
-        
-   $cliente = Cliente::find($id);
-   $email = User::where('email','=',$cliente->email)->first();
-  
-
-   if($email == null){
-   $user= user::create([
-            'nombre' =>$cliente->nombre,
-            'apellido' =>$cliente->apellido,
-            'password'=>bcrypt(1234),
-            're_password'=>1234,
-            'email' =>$cliente->email,
-            'direccion' =>$cliente->direccion,
-            'perfil_id' =>3,
-            'telefono' =>$cliente->telefono,
-            'provincia' =>"tucuman",
-            'ciudad' =>"san miguel de tucuman",
-            'cp' =>$cliente->cp,
-            ]);
-
-    $cliente->user_id = $user->id;
-    $cliente->save();
-
-     Alert::success('Mensaje existoso', 'Usuario Creado Con Exito'); 
-        return Redirect::to('/cliente');
-    }else{
-
-        Alert::error('Error ', 'El E-MAIL ya se encuentra en uso'); 
-        return Redirect::to('/cliente');
-    }
-
-    }
 
 
 

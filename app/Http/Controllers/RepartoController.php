@@ -45,42 +45,42 @@ class RepartoController extends Controller
 
           //pregunto que si la fecha ingresada es lunes entonces me devuelva el reparto del lunes                  
            if ($fecha->dayOfWeek == Carbon::MONDAY) {
-               $clientes = Cliente::where('lunes','=',1)->get();
+               $clientes = Cliente::where('lunes','=',1)->orderBy('direccion','asc')->get();
                $dia = "Lunes";
                return view('admin.reparto.index',compact('link','clientes','dia','fechaingresada'));
            } 
 
            if ($fecha->dayOfWeek == Carbon::TUESDAY) {
-               $clientes = Cliente::where('martes','=',1)->get();
+               $clientes = Cliente::where('martes','=',1)->orderBy('direccion','asc')->get();
                $dia = "Martes";
                return view('admin.reparto.index',compact('link','clientes','dia','fechaingresada'));
            } 
 
            if ($fecha->dayOfWeek == Carbon::WEDNESDAY) {
-               $clientes = Cliente::where('miercoles','=',1)->get();
+               $clientes = Cliente::where('miercoles','=',1)->orderBy('direccion','asc')->get();
                $dia = "Miercoles";
                return view('admin.reparto.index',compact('link','clientes','dia','fechaingresada'));
            } 
 
            if ($fecha->dayOfWeek == Carbon::THURSDAY) {
-               $clientes = Cliente::where('jueves','=',1)->get();
+               $clientes = Cliente::where('jueves','=',1)->orderBy('direccion','asc')->get();
                $dia = "Jueves";
                return view('admin.reparto.index',compact('link','clientes','dia','fechaingresada'));
            } 
 
            if ($fecha->dayOfWeek == Carbon::FRIDAY) {
-               $clientes = Cliente::where('viernes','=',1)->get();
+               $clientes = Cliente::where('viernes','=',1)->orderBy('direccion','asc')->get();
                $dia = "Viernes";
                return view('admin.reparto.index',compact('link','clientes','dia','fechaingresada'));
            } 
 
            if ($fecha->dayOfWeek == Carbon::SATURDAY) {
-               $clientes = Cliente::where('sabado','=',1)->get();
+               $clientes = Cliente::where('sabado','=',1)->orderBy('direccion','asc')->get();
                $dia = "Sabado";
                return view('admin.reparto.index',compact('link','clientes','dia','fechaingresada'));
            } 
            if ($fecha->dayOfWeek == Carbon::SUNDAY) {
-               $clientes = Cliente::where('domingo','=',1)->get();
+               $clientes = Cliente::where('domingo','=',1)->orderBy('direccion','asc')->get();
                $dia = "Domingo";
                return view('admin.reparto.index',compact('link','clientes','dia','fechaingresada'));
            }   

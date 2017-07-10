@@ -37,13 +37,13 @@ class FacturaController extends Controller
        $cliente = Cliente::find($id);
 
        //que me traiga las facturas de ese cliente
-        $facturas = Factura::where('cliente_id','=',$cliente->id)->paginate(3);
+        $facturas = Factura::where('cliente_id','=',$cliente->id)->orderBy('id','desc')->paginate(150);
 
          /*buscador*/
         $fechai=$request->input('fecha_inicio');
         $fechaf=$request->input('fecha_final');
         if (!empty($fechai) and !empty($fechaf)) {
-            $facturas = Factura::where('desde', '>=' , $fechai)->where('hasta', '<=', $fechaf)->paginate(50);
+            $facturas = Factura::where('desde', '>=' , $fechai)->where('hasta', '<=', $fechaf)->paginate(100);
         }
         /*buscador*/
 
@@ -281,20 +281,20 @@ class FacturaController extends Controller
 
 
     public function todasLasFacturas(){
-        $facturas = Factura::all();
+        $facturas = Factura::orderBy('desde','asc')->get();
         $count = Factura::all()->count();
         return view('admin.facturas.index',compact('facturas','count'));
      }
 
       public function facturasPagadas(){
-        $facturas = Factura::where('status','=','pagado')->get();
+        $facturas = Factura::where('status','=','pagado')->orderBy('desde','asc')->get();
         $count = Factura::where('status','=','pagado')->count();
         return view('admin.facturas.listar.pagadas',compact('facturas','count'));
      }
 
 
       public function facturasPendientes(){
-        $facturas = Factura::where('status','=','pendiente')->get();
+        $facturas = Factura::where('status','=','pendiente')->orderBy('desde','asc')->get();
         $count = Factura::where('status','=','pendiente')->count();
         return view('admin.facturas.listar.pendientes',compact('facturas','count'));
      }

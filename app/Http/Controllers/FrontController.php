@@ -22,25 +22,14 @@ class FrontController extends Controller
     }
 
 
-    public function index()
+    public function home()
     {
 
        //retornando una vista
-       return view ('admin.index');
+       return view ('index');
     }
     
-    public function welcome()
-    {
-       //retornando una vista
-        return view ('welcome');
-    }
-
-    
-     public function shop()
-    {
-       //retornando una vista
-        return view ('shop.home');
-    }
+  
 
     public function admin()
     {

@@ -10,14 +10,12 @@ use Session;
 use Redirect;
 use Storage;
 use Image;
-class LoginController extends BaseController
+class LoginController extends Controller
 {
      
 
 
-      public function __construct(){
-       parent::__construct();
-       }
+      
         
     //total del carrito
     private function total()
@@ -58,7 +56,7 @@ class LoginController extends BaseController
 
      public function LoginRedirect()
     {
-        return Redirect::back();
+        return Redirect::to('/cliente');
     }
 
 
