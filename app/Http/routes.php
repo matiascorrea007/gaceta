@@ -67,7 +67,7 @@ Route::post('factura-store-{id}','FacturaController@store');
 Route::put('factura-update/{id}','FacturaController@update');
 Route::delete('factura-destroy/{id}','FacturaController@destroy');
 Route::get('factura-detalle-pdf/{tipo}/{id}','FacturaController@detalleFacturaPdf');
-Route::post('factura-detalle-seleccion-pdf/{tipo}','FacturaController@detalleSeleccionFacturaPdf');
+Route::post('factura-detalleseleccion-pdf/{tipo}','FacturaController@detalleSeleccionFacturaPdf');
 
 Route::get('todas-las-facturas','FacturaController@todasLasFacturas');
 Route::get('facturas-pagadas','FacturaController@facturasPagadas');

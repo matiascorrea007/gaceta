@@ -94,7 +94,7 @@
 
 		<th class="col-md-4">Operaciones</th>
 	</thead>
-  {!!Form::open(['url'=>'factura-detalle-seleccion-pdf/1', 'method'=>'POST' , 'class'=>'navbar-form navbar-left' , 'role'=>'Search'])!!}
+  {!!Form::open(['url'=>'factura-detalleseleccion-pdf/1', 'method'=>'POST' , 'class'=>'navbar-form navbar-left' , 'role'=>'Search'])!!}
 
 	@foreach($facturas as $factura)
 	 
@@ -138,7 +138,8 @@
 		
 <td>
 
-<a href="{!! URL::to('factura-detalle-pdf/1/'.$factura->id) !!}" target="_blank"><button class="btn btn-danger"><i class="fa fa-file-pdf-o"> PDF</i></button></a>
+
+<a href="{!! URL::to('factura-detalle-pdf/1/'.$factura->id) !!}" target="_blank"><button type="button" class="btn btn-danger"><i class="fa fa-file-pdf-o"> PDF</i></button></a>
 
 
 

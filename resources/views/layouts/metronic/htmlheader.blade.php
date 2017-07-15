@@ -1,7 +1,7 @@
 
 <head>
         <meta charset="utf-8" />
-        <title>ADMIN - SHARKINFORMATICA</title>
+        <title>App la Gaceta - Reparto de Diarios</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="sharkinformatica venta de insumos para la computacion"

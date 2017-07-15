@@ -1,161 +1,96 @@
-<html>
-<head>
-<title>Factura Shark Informatica</title>
-
-
-<style type="text/css">
-  #page-wrap {
-    width: 700px;
-    margin: 0 auto;
-  }
-  .center-justified {
-    text-align: justify;
-    margin: 0 auto;
-    width: 30em;
-  }
-  table.outline-table {
-    border: 1px solid;
-    border-spacing: 0;
-    float: right;
-  }
-
-  .move-right{
-    float: right;
-  }
-
-  tr.border-bottom td, td.border-bottom {
-    border-bottom: 1px solid;
-  }
-  tr.border-top td, td.border-top {
-    border-top: 1px solid;
-  }
-  tr.border-right td, td.border-right {
-    border-right: 1px solid;
-  }
-  tr.border-right td:last-child {
-    border-right: 0px;
-  }
-  tr.center td, td.center {
-    text-align: center;
-    vertical-align: text-top;
-  }
-  td.pad-left {
-    padding-left: 5px;
-  }
-  tr.right-center td, td.right-center {
-    text-align: right;
-    padding-right: 50px;
-  }
-  tr.right td, td.right {
-    text-align: right;
-  }
-  .grey {
-    background:#ccc6c6;
-  }
-</style>
-</head>
-<body>
-  <div id="page-wrap">
-
-  @foreach($facturas as $factura)
-   
-
-    <table width="100%">
-      <tbody>
-        <tr>
-          <td width="50%">
-           <img height="60" width="60" class="img-responsive " src="storage/logo.png" alt=""> <!-- your logo here -->
-           <h3>Reparto a Domicilo La Gaceta <br>
-           Ramon Centeno e Hijos</h3>
-          </td>
-          <td width="50%">
-            <h3>Cliente :</h3>
-            <strong>Nombre:</strong> {{$factura->cliente->nombre}}<br>
-            <strong>Apellido:</strong> {{$factura->cliente->apellido}}<br>
-            <strong>Direccion :</strong> {{$factura->cliente->direccion}}<br>
-            <strong>N* de Dep. :</strong> {{$factura->cliente->departamento}}<br>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2">&nbsp;</td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <div class="center-justified">
-              <strong>Periodo Facturado:</strong> {{ $factura->desde->toDateString() }}
-              <strong>---</strong> {{ $factura->hasta->toDateString() }}
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  
-
-    <table width="100%" class="outline-table">
-      <tbody>
-        <tr class="border-bottom border-right grey">
-          <td colspan="10"><strong>Producto</strong></td>
-        </tr>
-        <tr class="border-bottom border-right ">
-            <td>Descripcion</td>
-            <td>Cantidad</td>
-            <td colspan="10">Total</td>
-        </tr>
-        <tr class="border-bottom border-right">
-          <td>Gacetas entregadas</td>
-          <td>{{$factura->cantidad}}</td>
-          <td colspan="10">${{$factura->total}}</td>
-        </tr>
-         <tr class="border-bottom border-right">
-            <td>.</td>
-            <td>.</td>
-            <td colspan="10">.</td>
-        </tr>
-         <tr class="border-bottom border-right">
-            <td>.</td>
-            <td>.</td>
-            <td colspan="10">.</td>
-        </tr>
-         <tr class="border-bottom border-right">
-            <td>.</td>
-            <td>.</td>
-            <td colspan="10">.</td>
-        </tr>
-
-    </table>
-<br><br><br><br><br><br><br><br>
-
-    <table width="100%" class="outline-table">
-      <tbody>
-        <tr >
-        <td width="75%" class=" grey"> TOTAL =</td>
-          <td width="25%" class=""><strong>$</strong></td>
-        </tr>
-        <tr class="">
-            <td></td>
-            <td></td>
-        </tr>
-
-    </table>
-
-    <p>&nbsp;</p>
-     
-
-
-    
-    <p>&nbsp;</p>
-    <table width="100%">
-      <tbody>
-        <tr>
-          <td class="center">
-           <hr> Software Diseñado por Sharkestudio  |  http://sharkestudio.com <hr>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <br>
-       @endforeach
-       
-  </div>
-</body>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Example 2</title>
+    <link rel="stylesheet" href="css/pdf.css" media="all" />
+  </head>
+  <body>
+    <header class="clearfix">
+      <div id="logo">
+        <img src="logo.png">
+      </div>
+      <div id="company">
+        <h2 class="name">Company Name</h2>
+        <div>455 Foggy Heights, AZ 85004, US</div>
+        <div>(602) 519-0450</div>
+        <div><a href="mailto:company@example.com">company@example.com</a></div>
+      </div>
+      </div>
+    </header>
+    <main>
+      <div id="details" class="clearfix">
+        <div id="client">
+          <div class="to">INVOICE TO:</div>
+          <h2 class="name">John Doe</h2>
+          <div class="address">796 Silver Harbour, TX 79273, US</div>
+          <div class="email"><a href="mailto:john@example.com">john@example.com</a></div>
+        </div>
+        <div id="invoice">
+          <h1>INVOICE 3-2-1</h1>
+          <div class="date">Date of Invoice: 01/06/2014</div>
+          <div class="date">Due Date: 30/06/2014</div>
+        </div>
+      </div>
+      <table border="0" cellspacing="0" cellpadding="0">
+        <thead>
+          <tr>
+            <th class="no">#</th>
+            <th class="desc">DESCRIPTION</th>
+            <th class="unit">UNIT PRICE</th>
+            <th class="qty">QUANTITY</th>
+            <th class="total">TOTAL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="no">01</td>
+            <td class="desc"><h3>Website Design</h3>Creating a recognizable design solution based on the company's existing visual identity</td>
+            <td class="unit">$40.00</td>
+            <td class="qty">30</td>
+            <td class="total">$1,200.00</td>
+          </tr>
+          <tr>
+            <td class="no">02</td>
+            <td class="desc"><h3>Website Development</h3>Developing a Content Management System-based Website</td>
+            <td class="unit">$40.00</td>
+            <td class="qty">80</td>
+            <td class="total">$3,200.00</td>
+          </tr>
+          <tr>
+            <td class="no">03</td>
+            <td class="desc"><h3>Search Engines Optimization</h3>Optimize the site for search engines (SEO)</td>
+            <td class="unit">$40.00</td>
+            <td class="qty">20</td>
+            <td class="total">$800.00</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2"></td>
+            <td colspan="2">SUBTOTAL</td>
+            <td>$5,200.00</td>
+          </tr>
+          <tr>
+            <td colspan="2"></td>
+            <td colspan="2">TAX 25%</td>
+            <td>$1,300.00</td>
+          </tr>
+          <tr>
+            <td colspan="2"></td>
+            <td colspan="2">GRAND TOTAL</td>
+            <td>$6,500.00</td>
+          </tr>
+        </tfoot>
+      </table>
+      <div id="thanks">Thank you!</div>
+      <div id="notices">
+        <div>NOTICE:</div>
+        <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
+      </div>
+    </main>
+    <footer>
+      Invoice was created on a computer and is valid without the signature and seal.
+    </footer>
+  </body>
 </html>

@@ -43,7 +43,6 @@ class User extends Authenticatable
         'ciudad',
         'cp',
         'puntos',
-        'tipo',
     ];
 
     /**

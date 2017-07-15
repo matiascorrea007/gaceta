@@ -272,7 +272,6 @@ class FacturaController extends Controller
             }
         }
 
-
         $facturas = Collection::make($misfacturas);
 
         $vistaurl="admin.cliente.factura-detalle-pdf";

@@ -2,7 +2,7 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>Basic Login Form</title>
+  <title>App la Gaceta - Reparto de Diarios</title>
   
 
 
