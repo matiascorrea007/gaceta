@@ -257,6 +257,7 @@ class FacturaController extends Controller
     public function detalleFacturaPdf($tipo,$id){
         $vistaurl="admin.cliente.factura-detalle-pdf";
         $facturas=Factura::find($id);
+
      return $this->crearPDF($facturas, $vistaurl,$tipo);
      
     }
@@ -274,7 +275,7 @@ class FacturaController extends Controller
 
         $facturas = Collection::make($misfacturas);
 
-        $vistaurl="admin.cliente.factura-detalle-pdf";
+        $vistaurl="admin.cliente.factura-detalle-seleccion-pdf";
 
      return $this->crearPDF($facturas, $vistaurl,$tipo);
      

@@ -57,7 +57,7 @@
 <body>
   <div id="page-wrap">
 
-  @foreach($facturas as $factura)
+  
    
 
     <table width="100%">
@@ -70,8 +70,8 @@
           </td>
           <td width="50%">
             <h3>Cliente :</h3>
-            <strong>Direccion :</strong> {{$factura->cliente->direccion}}<br>
-            <strong>N* de Dep. :</strong> {{$factura->cliente->departamento}}<br>
+            <strong>Direccion :</strong> {{$facturas->cliente->direccion}}<br>
+            <strong>N* de Dep. :</strong> {{$facturas->cliente->departamento}}<br>
           </td>
         </tr>
         <tr>
@@ -80,8 +80,8 @@
         <tr>
           <td colspan="2">
             <div class="center-justified">
-              <strong>Periodo Facturado:</strong> {{ $factura->desde->toDateString() }}
-              <strong>---</strong> {{ $factura->hasta->toDateString() }}
+              <strong>Periodo Facturado:</strong> {{ $facturas->desde->toDateString() }}
+              <strong>---</strong> {{ $facturas->hasta->toDateString() }}
             </div>
           </td>
         </tr>
@@ -101,8 +101,8 @@
         </tr>
         <tr class="border-bottom border-right">
           <td>Gacetas entregadas</td>
-          <td>{{$factura->cantidad}}</td>
-          <td colspan="10">${{$factura->total}}</td>
+          <td>{{$facturas->cantidad}}</td>
+          <td colspan="10">${{$facturas->total}}</td>
         </tr>
          <tr class="border-bottom border-right">
             <td>.</td>
@@ -152,7 +152,7 @@
       </tbody>
     </table>
     <br>
-       @endforeach
+     
        
   </div>
 </body>

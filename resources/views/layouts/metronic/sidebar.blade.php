@@ -280,6 +280,14 @@
                                 <span class="arrow"></span>
                             </a>
                         </li>
+
+                        <li class="nav-item  ">
+                            <a href="{!! URL::to('ganancias/') !!}" class="nav-link nav-toggle">
+                                <img height="40"  width="40" src="storage/icono admin/gastos.svg">
+                                <span class="title">Ganancias</span>
+                                <span class="arrow"></span>
+                            </a>
+                        </li>
                          
 
  <!--  

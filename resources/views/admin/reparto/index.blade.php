@@ -25,7 +25,7 @@
 
 <i class="fa fa-bicycle font-red" aria-hidden="true"></i>
 
-<span class="caption-subject font-red sbold uppercase">Seccion de Clientes</span>
+<span class="caption-subject font-red sbold uppercase">Seccion de Repartos</span>
 @include('alerts.request')
 @include('alerts.success')
 
@@ -41,6 +41,9 @@
 	<i class="fa fa-calendar"></i>
 {!!Form::label('')!!}
 {!!Form::text('fecha',null,['class'=>'form-control','id'=>'datepicker','placeholder'=>'Ingrese la Fecha'])!!}
+
+  {!!Form::select('reparto_id',$reparto,null,['class'=>'form-control'])!!}
+  
  <button type="submit" class="glyphicon glyphicon-search btn btn-success"> CALCULAR </button>
 </div>
 {!!Form::close()!!}

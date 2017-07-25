@@ -9,6 +9,18 @@ return array(
 	'3'	=> 'user',
 	],
 
+'reparto'=>[
+	'Ramon Centeno'	=> 'Ramon Centeno',
+	'Jesus Gomez'	=> 'Jesus Gomez',
+	],
+
+'reparto2'=>[
+	'todos'	=> '',
+	'Ramon Centeno'	=> 'Ramon Centeno',
+	'Jesus Gomez'	=> 'Jesus Gomez',
+	],
+
+
 'provincia'=>[
 	null	=> 'selecione una Provincia',
 	'Buenos Aires'	=> 'Buenos Aires',

@@ -10,6 +10,8 @@ use Soft\Http\Requests\ClienteUpdateRequest;
 
 use Soft\Cliente;
 use Soft\Precio;
+use Soft\Reparto;
+
 use Session;
 use Redirect;
 use Soft\Http\Requests;
@@ -33,8 +35,8 @@ class ClienteController extends Controller
      */
     public function index(Request $request)
     {
-        
-
+        //envio a los repartidores
+        $reparto=Reparto::lists('nombre','id');
 
         $clientes=cliente::orderBy('direccion','asc');
         //lo que ingresamos en el buscador lo alamacenamos en $usu_nombre
@@ -55,7 +57,7 @@ class ClienteController extends Controller
             $clientes->where('direccion','LIKE','%'.$direccion.'%');
         }   
 
-        $clientes = $clientes->paginate(100);
+        $clientes = $clientes->paginate(150);
 
         //dd($clientes);
         //realizamos la paginacion
@@ -69,7 +71,7 @@ class ClienteController extends Controller
       
        //$clientee = Cliente::find(8);
       // dd($clientee->created_at->addweeks(1));
-        return view('admin.cliente.index',compact('link','clientes','count','precios'));
+        return view('admin.cliente.index',compact('link','clientes','count','precios','reparto'));
     }
 
     
@@ -77,6 +79,7 @@ class ClienteController extends Controller
     public function mensuales(Request $request)
     {
 
+        $reparto=Reparto::lists('nombre','id');
 
          $clientes=cliente::orderBy('direccion','asc');
         //lo que ingresamos en el buscador lo alamacenamos en $usu_nombre
@@ -98,7 +101,7 @@ class ClienteController extends Controller
         }
 
         //realizamos la paginacion
-          $clientes = $clientes->paginate(100);
+          $clientes = $clientes->paginate(150);
 
 
         $link = "clientes";
@@ -106,13 +109,16 @@ class ClienteController extends Controller
         $precios = Precio::first();
 
        
-        return view('admin.cliente.listar.mensuales',compact('link','clientes','count','precios'));
+        return view('admin.cliente.listar.mensuales',compact('link','clientes','count','precios','reparto'));
     }
 
 
 
     public function quincenales(Request $request)
     {
+
+        $reparto=Reparto::lists('nombre','id');
+
 
         $clientes=cliente::orderBy('direccion','asc');
         //lo que ingresamos en el buscador lo alamacenamos en $usu_nombre
@@ -134,7 +140,7 @@ class ClienteController extends Controller
         }
 
         //realizamos la paginacion
-          $clientes = $clientes->paginate(100);
+          $clientes = $clientes->paginate(150);
 
 
         $link = "clientes";
@@ -142,7 +148,7 @@ class ClienteController extends Controller
         $precios = Precio::first();
 
 
-        return view('admin.cliente.listar.quincenales',compact('link','clientes','count','precios'));
+        return view('admin.cliente.listar.quincenales',compact('link','clientes','count','precios','reparto'));
     }
 
 
@@ -199,6 +205,7 @@ class ClienteController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $cliente= Cliente::find($id);
 
         $cliente->nombre = $request['nombre'];
@@ -211,6 +218,7 @@ class ClienteController extends Controller
         $cliente->departamento = $request['departamento'];
         $cliente->tipo = $request['tipo'];
         $cliente->habilitado = $request['habilitado'];
+        $cliente->reparto_id = $request['reparto_id'];
         $cliente->lunes = $request['lunes'];
         $cliente->martes = $request['martes'];
         $cliente->miercoles = $request['miercoles'];

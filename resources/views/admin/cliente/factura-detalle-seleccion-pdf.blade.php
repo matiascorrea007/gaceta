@@ -628,8 +628,8 @@
 
 </head>
 <body>
-
 @foreach($facturas as $factura)
+
   <div id="DIV_52">
   <div id="DIV_53">
     <div id="DIV_54">
@@ -640,11 +640,11 @@
               <div id="DIV_4">
                 <div id="DIV_5">
                   <div id="DIV_6" >
-                  <img height="60" width="60" class="img-responsive " src="storage/logo.png" alt=""> 
+                  <img height="60" width="180" class="img-responsive " src="storage/logo.png" alt=""> 
                    
                   </div>
                   <div id="DIV_7">
-                   Reparto a Domicilio la Gaceta <br> Ramon Centeno e Hijos
+                   
                   </div>
                   <div id="DIV_8">
                   </div>
@@ -775,8 +775,8 @@
       </form>
     </div>
   </div>
-</div>
-
+</div><br><br>
 @endforeach
+
 </body>
 </html>

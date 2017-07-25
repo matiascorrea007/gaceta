@@ -84,6 +84,9 @@ Route::get('reparto','RepartoController@index');
 Route::get('reparto-calcular','RepartoController@repartoCalcular');
 
 
+Route::get('ganancias','GananciasController@index');
+Route::get('ganancias-calcular','GananciasController@gananciaCalcular');
+
 Route::get('gasto','GastoController@index');
 Route::get('gasto-create','GastoController@create');
 Route::post('gasto-store','GastoController@store');

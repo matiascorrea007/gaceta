@@ -25,6 +25,7 @@ class Cliente extends Model
             'observacion',    
             'cuit',
             'habilitado',
+            'reparto_id',
             'tipo',
             'lunes',
             'martes',
