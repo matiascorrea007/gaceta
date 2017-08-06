@@ -237,6 +237,7 @@
     list-style: none outside none;
     outline: rgb(102, 102, 102) none 0px;
     overflow: hidden;
+    color:black;
 }/*#LI_19:after*/
 
 #TR_20 {
@@ -640,7 +641,7 @@
               <div id="DIV_4">
                 <div id="DIV_5">
                   <div id="DIV_6" >
-                  <img height="60" width="180" class="img-responsive " src="storage/logo.png" alt=""> 
+                  <img height="80" width="230" class="img-responsive " src="storage/logo.png" alt=""> 
                    
                   </div>
                   <div id="DIV_7">
@@ -659,7 +660,8 @@
                           <li id="LI_19">
                           </li>
                           <li id="LI_19">
-                            Periodo : {{$facturas->desde->toDateString()}} -- {{$facturas->hasta->toDateString()}}
+                          <strong>AV democracia 713</strong><br><br>
+                            <strong>Periodo : {{$facturas->desde->toDateString()}} -- {{$facturas->hasta->toDateString()}}</strong>
                           </li>
                         </ul>
                       </td>
@@ -672,10 +674,10 @@
                   
                           </li>
                           <li id="LI_19">
-                            Direcc. : {{$facturas->cliente->direccion}} -- N* dep. : {{$facturas->cliente->departamento}}
+                            <strong>Direcc. : {{$facturas->cliente->direccion}} --</strong>
                           </li>
                           <li id="LI_19">
-                            Tel. : {{$facturas->cliente->telefono}}
+                           <strong> N* dep. : {{$facturas->cliente->departamento}}</strong>
                           </li>
                         </ul>
                       </td>

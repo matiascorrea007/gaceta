@@ -76,7 +76,7 @@
 
             <table id="example2" class="table table-hover table-light">
 	<thead>
-		
+		<th>#</th>
 		<th>Nombre</th>
 		<th>Apellido</th>
 		<!--<th>Razon social</th>-->
@@ -88,10 +88,15 @@
 		<th>Tipo de Pago</th>
 		<th class="col-md-4">Operaciones</th>
 	</thead>
+
+  <?php 
+  $i=0; ?>
+
 	@if(!empty($clientes))
 	@foreach($clientes as $cliente)
 	<tbody>
 	<!-- -->
+  <td>{{$i = $i+1}}</td>
 	<td>{{ $cliente -> nombre}}</td>
 	<td>{{ $cliente -> apellido}}</td>
 	<!--<td>{{ $cliente -> razonsocial}}</td>-->

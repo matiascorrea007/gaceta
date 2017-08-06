@@ -38,16 +38,38 @@ class FacturaController extends Controller
          $link = "clientes";
        $cliente = Cliente::find($id);
 
+
        //que me traiga las facturas de ese cliente
-        $facturas = Factura::where('cliente_id','=',$cliente->id)->orderBy('id','desc')->paginate(150);
+        $facturas = Factura::where('cliente_id','=',$cliente->id)->orderBy('id','desc');
+
 
          /*buscador*/
-        $fechai=$request->input('fecha_inicio');
-        $fechaf=$request->input('fecha_final');
-        if (!empty($fechai) and !empty($fechaf)) {
-            $facturas = Factura::where('desde', '>=' , $fechai)->where('hasta', '<=', $fechaf)->paginate(100);
-        }
+       
+
+       if (!empty($request['fecha_inicio']) and !empty($request['fecha_final'])) {
+                $fechai =  Carbon::parse($request['fecha_inicio']);
+                $fechaf =  Carbon::parse($request['fecha_final']);
+
+                 $facturas->where('desde', '>=' , $fechai)->where('hasta', '<=', $fechaf);
+         }
+        
+
+
+        $facturas = $facturas->paginate(50);
         /*buscador*/
+
+       //dd($facturas);
+
+
+        
+
+        //me compara todas las facturas con la fecha del updated_at en los intervalos que le pase
+       //$facturas = Factura::where('status','=','pagado')->whereBetween('updated_at',array($fecha_desde,$fecha_hasta))->get();
+
+
+
+         //$facturas = $facturas;
+
 
         
        // $dtToronto = Carbon::createFromDate(2017, 6, 12, 'America/Toronto');

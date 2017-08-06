@@ -640,7 +640,7 @@
               <div id="DIV_4">
                 <div id="DIV_5">
                   <div id="DIV_6" >
-                  <img height="60" width="180" class="img-responsive " src="storage/logo.png" alt=""> 
+                   <img height="80" width="230" class="img-responsive " src="storage/logo.png" alt=""> 
                    
                   </div>
                   <div id="DIV_7">
@@ -659,7 +659,8 @@
                           <li id="LI_19">
                           </li>
                           <li id="LI_19">
-                            Periodo : {{$factura->desde->toDateString()}} -- {{$factura->hasta->toDateString()}}
+                          <strong>AV democracia 713</strong><br><br>
+                           <strong>  Periodo : {{$factura->desde->toDateString()}} -- {{$factura->hasta->toDateString()}}</strong>
                           </li>
                         </ul>
                       </td>
@@ -672,10 +673,10 @@
                   
                           </li>
                           <li id="LI_19">
-                            Direcc. : {{$factura->cliente->direccion}} -- N* dep. : {{$factura->cliente->departamento}}
+                            <strong> Direcc. : {{$factura->cliente->direccion}} -- </strong>
                           </li>
                           <li id="LI_19">
-                            Tel. : {{$factura->cliente->telefono}}
+                           <strong> N* dep. : {{$factura->cliente->departamento}}</strong>
                           </li>
                         </ul>
                       </td>

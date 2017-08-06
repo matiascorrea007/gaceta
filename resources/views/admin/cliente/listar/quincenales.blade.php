@@ -139,6 +139,10 @@
   @endif
   @endforeach
   </table>
+
+  <!--para renderizar la paginacion-->
+  {!! $clientes->render() !!}
+  
                     </div>
                 </div>
             </div>
@@ -155,8 +159,7 @@
  <!--modal Precios-->
  @include('admin.cliente.modal.modal-precios')
 
-<!--para renderizar la paginacion-->
-  {!! $clientes->render() !!}
+
 
                           
 

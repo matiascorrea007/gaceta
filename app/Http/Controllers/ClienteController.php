@@ -38,26 +38,26 @@ class ClienteController extends Controller
         //envio a los repartidores
         $reparto=Reparto::lists('nombre','id');
 
-        $clientes=cliente::orderBy('direccion','asc');
+        $clientes=cliente::where('tipo','=','semanal')->orderBy('direccion','asc');
         //lo que ingresamos en el buscador lo alamacenamos en $usu_nombre
-        $nombre=$request->input('nombre');
+        $nombre=$request->input('nombr');
         
         
 
         //preguntamos que si ($usu_nombre no es vacio
         if (!empty($nombre)) {
             //entonces me busque de usu_nombre a el nombre que le pasamos atraves de $usu_nombre
-           $clientes->where(DB::raw("CONCAT(nombre,'',apellido)"),'LIKE','%'.$nombre.'%');
+           $clientes->where(DB::raw("CONCAT(nombre,'',apellido)"),'LIKE','%'.$nombre.'%')->get();
         }   
 
         //busqueda por email
-        $direccion=$request->input('direccion');
+        $direccion=$request->input('direcc');
         if (!empty($direccion)) {
             //entonces me busque de usu_nombre a el nombre que le pasamos atraves de $usu_nombre
             $clientes->where('direccion','LIKE','%'.$direccion.'%');
         }   
 
-        $clientes = $clientes->paginate(150);
+        $clientes = $clientes->paginate(50);
 
         //dd($clientes);
         //realizamos la paginacion
@@ -81,9 +81,9 @@ class ClienteController extends Controller
 
         $reparto=Reparto::lists('nombre','id');
 
-         $clientes=cliente::orderBy('direccion','asc');
+         $clientes=cliente::where('tipo','=','mensuales')->orderBy('direccion','asc');
         //lo que ingresamos en el buscador lo alamacenamos en $usu_nombre
-        $nombre=$request->input('nombre');
+        $nombre=$request->input('nombr');
         
         
 
@@ -94,14 +94,14 @@ class ClienteController extends Controller
         }   
 
         //busqueda por email
-        $direccion=$request->input('direccion');
+        $direccion=$request->input('direcc');
         if (!empty($direccion)) {
             //entonces me busque de usu_nombre a el nombre que le pasamos atraves de $usu_nombre
             $clientes->where('direccion','LIKE','%'.$direccion.'%');
         }
 
         //realizamos la paginacion
-          $clientes = $clientes->paginate(150);
+          $clientes = $clientes->paginate(100);
 
 
         $link = "clientes";
@@ -120,9 +120,9 @@ class ClienteController extends Controller
         $reparto=Reparto::lists('nombre','id');
 
 
-        $clientes=cliente::orderBy('direccion','asc');
+        $clientes=cliente::where('tipo','=','quincenales')->orderBy('direccion','asc');
         //lo que ingresamos en el buscador lo alamacenamos en $usu_nombre
-        $nombre=$request->input('nombre');
+        $nombre=$request->input('nombr');
         
         
 
@@ -133,14 +133,14 @@ class ClienteController extends Controller
         }   
 
         //busqueda por email
-        $direccion=$request->input('direccion');
+        $direccion=$request->input('direcc');
         if (!empty($direccion)) {
             //entonces me busque de usu_nombre a el nombre que le pasamos atraves de $usu_nombre
             $clientes->where('direccion','LIKE','%'.$direccion.'%');
         }
 
         //realizamos la paginacion
-          $clientes = $clientes->paginate(150);
+          $clientes = $clientes->paginate(50);
 
 
         $link = "clientes";

@@ -80,9 +80,11 @@
 	<div class="form-group col-xs-12 col-sm-12 col-md-4">
 	<div class="input-group input-icon right ">
  	<span class="input-group-addon"><i class="fa fa-map-marker font-blue"> Direccion :</i></span>
-		{!!Form::text('direccion',null,['class'=>'form-control','placeholder'=>'ingrese la direccion'])!!}
+		{!!Form::text('direccion',null,['class'=>'form-control','placeholder'=>'ingrese la direccion','value'=>'{{$cliente->direccion}}'])!!}
 	</div>
 	</div>
+
+
 
 	<div class="form-group col-xs-12 col-sm-12 col-md-4">
 	<div class="input-group input-icon right ">
