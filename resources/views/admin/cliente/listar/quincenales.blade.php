@@ -49,8 +49,8 @@
 {!!Form::open(['url'=>'cliente-quincenales', 'method'=>'GET' , 'class'=>'navbar-form navbar-left' , 'role'=>'Search'])!!}
 <div class="form-group">
   {!!Form::label('')!!}
-  {!!Form::text('nombre',null,['class'=>'form-control','placeholder'=>'Nombre'])!!}
-  {!!Form::text('direccion',null,['class'=>'form-control','placeholder'=>'Direccion'])!!}
+  {!!Form::text('nombr',null,['class'=>'form-control','placeholder'=>'Nombre'])!!}
+  {!!Form::text('direcc',null,['class'=>'form-control','placeholder'=>'Direccion'])!!}
  <button type="submit" class="glyphicon glyphicon-search btn btn-success"> BUSCAR </button>
 </div>
 {!!Form::close()!!}

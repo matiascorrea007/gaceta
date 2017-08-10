@@ -682,16 +682,6 @@
                       </td>
                     </tr>
 
-
-
-                    <tr id="TR_29">
-                      <th id="TH_30">
-                      </th>
-                      <td id="TD_31">
-                      </td>
-                    </tr>
-
-
                         <tr>
                             <th>Cantidad</th>
                             <th>Precio</th>

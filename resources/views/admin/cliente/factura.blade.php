@@ -50,7 +50,7 @@
 
 <i class="fa fa-calendar"></i>
 {!!Form::label('Fecha Inicial')!!}
-{!!Form::text('fecha_inicio',null,['class'=>'form-control','id'=>'datepicker','placeholder'=>'Fecha de Inicio'])!!}
+{!!Form::text('fecha_inicio',null,['class'=>'form-control','id'=>'datepicker1','placeholder'=>'Fecha de Inicio'])!!}
 
 <i class="fa fa-calendar"></i>
 {!!Form::label('Fecha Final')!!}
@@ -68,10 +68,14 @@
 
     <div class="actions">
        <div class="btn-group btn-group-devided" >
-
+  
+          @if($cliente->tipo == "mensuales" )
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#crear-factura-mensual">Generar Facturas<i class="fa fa-plus fa-lg"></i></button>
+          @elseif($cliente->tipo == "quincenales" )
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#crear-factura-quincenal">Generar Facturas<i class="fa fa-plus fa-lg"></i></button>
+          @else
           <button type="button" class="btn btn-success" data-toggle="modal" data-target="#crear-factura">Generar Facturas<i class="fa fa-plus fa-lg"></i></button>
-
-
+          @endif
   		
        </div>
    </div>
@@ -171,8 +175,15 @@
 
 
 
- <!--modal crear pago-->
+ <!--modal crear factura-->
  @include('admin.cliente.modal.modal-crear-factura')
+
+  <!--modal crear factura mensual-->
+ @include('admin.cliente.modal.modal-crear-factura-mensual')
+  
+    <!--modal crear factura mensual-->
+ @include('admin.cliente.modal.modal-crear-factura-quincenal')
+
   <!--modal eliminar factura-->
 @include('admin.cliente.modal.modal-delete-factura')
 
@@ -189,13 +200,25 @@
 <script>
   $(function () {
     //Date picker
-    $('#datepicker').datepicker({
+    $('#desde2').datepicker({
       autoclose: true  
     });
-     $('#datepicker2').datepicker({
+     $('#hasta').datepicker({
       autoclose: true
     });
      $('#desde').datepicker({
+      autoclose: true  
+    });
+     $('#datepicker1').datepicker({
+      autoclose: true  
+    });
+     $('#datepicker2').datepicker({
+      autoclose: true  
+    });
+     $('#datepicker3').datepicker({
+      autoclose: true  
+    });
+     $('#datepicker4').datepicker({
       autoclose: true  
     });
   });

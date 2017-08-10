@@ -35,6 +35,7 @@ class FacturaController extends Controller
     public function index(Request $request, $id)
     {
 
+
          $link = "clientes";
        $cliente = Cliente::find($id);
 
@@ -155,6 +156,9 @@ class FacturaController extends Controller
         }
         
 
+
+
+        /*-----------------SEMANALES-----------------*/
         if ($cliente->tipo == "semanal") {
             $total = $lunes + $martes + $miercoles + $jueves + $viernes + $sabado + $domingo;
             $diarioTotal = $cantLunes + $cantMartes + $cantMiercoles + $cantJueves + $cantViernes + $cantSabado + $cantDomingo;
@@ -164,25 +168,71 @@ class FacturaController extends Controller
             
         }
 
-        if ($cliente->tipo == "mensuales") {
-            //multiplco por 4 que son las 4 semanas del mes
-            $total = ($lunes + $martes + $miercoles + $jueves + $viernes + $sabado + $domingo)*4;
-            $diarioTotal = ($cantLunes + $cantMartes + $cantMiercoles + $cantJueves + $cantViernes + $cantSabado + $cantDomingo)*4;
+
+
+
+        /*-----------------MENSUAL y QUINCENALES-----------------*/
+        if ($cliente->tipo == "mensuales" or $cliente->tipo == "quincenales") {
+
             $desde =  Carbon::parse($request['desde']);
-            //le sumo 6 dias a mi fecha de incio de la facturacion (facturacion mensual)
-            $hasta = $desde->addDay(29);
+            $hasta =  Carbon::parse($request['hasta']);
+            //le sumamos un dia ya que me toma un dia de menos
+            $hasta=$hasta->addDay();
+
+            //array de todos los dias , la posicion 0 es el lunes , la 1 es el martes y asi ...
+            $fecha=[0,0,0,0,0,0,0];
+        
+            $actual=$desde->copy();
+
+            //al hacer $actual->addDay(); sumo los dias para que cuando llegue con el dia actual no aiga diferencia
+            //por lo tanto no sera mayor que cero y termina el bucle
+            while ($actual->diffInDays($hasta)>0){
+                //$actual->dayOfWeek me devuelve el dia de la semana
+                
+
+                if($actual->dayOfWeek == Carbon::MONDAY ){
+                      $fecha[0] = $fecha[0]+1;  
+                }
+
+                if($actual->dayOfWeek == Carbon::TUESDAY ){
+                      $fecha[1] = $fecha[1]+1;  
+                }
+
+                if($actual->dayOfWeek == Carbon::WEDNESDAY ){
+                      $fecha[2] = $fecha[2]+1;  
+                }
+                if($actual->dayOfWeek == Carbon::THURSDAY ){
+                      $fecha[3] = $fecha[3]+1;  
+                }
+                if($actual->dayOfWeek == Carbon::FRIDAY ){
+                      $fecha[4] = $fecha[4]+1;  
+                }
+                if($actual->dayOfWeek == Carbon::SATURDAY ){
+                      $fecha[5] = $fecha[5]+1;  
+                }
+                if($actual->dayOfWeek == Carbon::SUNDAY ){
+                      $fecha[6] = $fecha[6]+1;  
+                }
+                   
+                
+                //esto es para terminar el while , al llegar a ser igual q cero termina
+                $actual->addDay();
+                }
+
+                //restamos de nuevo el dia
+                $hasta=$hasta->addDay(-1);
+                
+       
+            //multiplco los dias por la cantidad de ese dia
+            $total = ($lunes*$fecha[0]) + ($martes*$fecha[1]) + ($miercoles*$fecha[2]) + ($jueves*$fecha[3]) + ($viernes*$fecha[4]) + ($sabado*$fecha[5]) + ($domingo*$fecha[6]);
+            $diarioTotal = ($cantLunes*$fecha[0]) + ($cantMartes*$fecha[1]) + ($cantMiercoles*$fecha[2]) + ($cantJueves*$fecha[3]) + ($cantViernes*$fecha[4]) + ($cantSabado*$fecha[5]) + ($cantDomingo*$fecha[6]);
+            
+         
+           
             
         }
 
-        if ($cliente->tipo == "quincenales") {
-            //multiplco por 2 que son las 2 semanas de la quincena
-            $total = ($lunes + $martes + $miercoles + $jueves + $viernes + $sabado + $domingo)*2;
-            $diarioTotal = ($cantLunes + $cantMartes + $cantMiercoles + $cantJueves + $cantViernes + $cantSabado + $cantDomingo)*2;
-            $desde =  Carbon::parse($request['desde']);
-            //le sumo 6 dias a mi fecha de incio de la facturacion (facturacion mensual)
-            $hasta = $desde->addDay(13);
-            
-        }
+
 
 
         $factura =   Factura::create([

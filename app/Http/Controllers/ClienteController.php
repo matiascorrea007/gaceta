@@ -101,7 +101,7 @@ class ClienteController extends Controller
         }
 
         //realizamos la paginacion
-          $clientes = $clientes->paginate(100);
+          $clientes = $clientes->paginate(50);
 
 
         $link = "clientes";
