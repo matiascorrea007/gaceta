@@ -660,7 +660,7 @@
                           </li>
                           <li id="LI_19">
                           <strong>AV democracia 713</strong><br><br>
-                           <strong>  Periodo : {{$factura->desde->toDateString()}} -- {{$factura->hasta->toDateString()}}</strong>
+                           <strong> Periodo : {{$factura->desde->format('d-m-y')}} -- {{$factura->hasta->format('d-m-y')}}</strong>
                           </li>
                         </ul>
                       </td>
