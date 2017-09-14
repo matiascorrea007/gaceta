@@ -8,16 +8,15 @@
 <ul class="page-breadcrumb">
     <li>
         <i class="icon-home"></i>
-        <a href="{{ url('cliente-quincenales') }}" >Clientes</a>
+        <a href="{{ url('cliente-mensuales') }}" >Clientes</a>
         <i class="fa fa-angle-right"></i>
     </li>
     <li>
-    <a href="{{ url('cliente-quincenales') }}" >Quincenales</a>
+    <a href="{{ url('cliente-mensuales') }}" >Mensuales</a>
         <i class="fa fa-angle-right"></i>
         </li>
 </ul>
 @endsection
-
 
 
 
@@ -39,15 +38,15 @@
 <div class="box-body">
 <ul class="nav nav-tabs">
   <li ><a href="{{ url('cliente') }}">Clientes Semanales </a></li>
-  <li class="active"><a href="{{ url('cliente-quincenales') }}">Clientes Quincenales ({{$count}})</a></li>
+  <li><a href="{{ url('cliente-quincenales') }}">Clientes Quincenales</a></li>
   <li ><a href="{{ url('cliente-mensuales') }}">Clientes Mensuales </a></li>
-  <li><a href="{{ url('clientes-all') }}">Todos los Clientes</a></li>
+  <li class="active"><a href="{{ url('clientes-all') }}">Todos los Clientes ({{$count}})</a></li>
 </ul>
 </div>
 
 
 <!--buscador-->
-{!!Form::open(['url'=>'cliente-quincenales', 'method'=>'GET' , 'class'=>'navbar-form navbar-left' , 'role'=>'Search'])!!}
+{!!Form::open(['url'=>'cliente-mensuales', 'method'=>'GET' , 'class'=>'navbar-form navbar-left' , 'role'=>'Search'])!!}
 <div class="form-group">
   {!!Form::label('')!!}
   {!!Form::text('nombr',null,['class'=>'form-control','placeholder'=>'Nombre'])!!}
@@ -74,7 +73,7 @@
 
 
         </div><!--portlet-title-->
-    <div class="portlet-body">
+   <div class="portlet-body">
         <div class="table-scrollable">
             <table id="example2" class="table table-hover table-light">
   <thead>
@@ -95,10 +94,9 @@
     <th>vie</th>
     <th>sab</th>
     <th>dom</th>
-    <th class="col-md-4">Operaciones</th>
   </thead>
   @foreach($clientes as $cliente)
-   @if($cliente->tipo == "quincenales")
+   
   <tbody>
   <!-- -->
   <td>{{ $cliente -> nombre}}</td>
@@ -119,31 +117,15 @@
   <td>@if($cliente -> domingo == 1) si @else no @endif</td>
   
   
-<td>
-<a href="{!! URL::to('factura-ver-'.$cliente->id) !!}" class="btn btn-warning"><i class="fa fa-expand"></i></a>
 
-
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Edit-{{ $cliente->id }}"><i class="fa fa-edit"></i></button>
-
-
-
-<!--esto es para que solo el administrador pueda eliminar-->
-@if (Auth::user()->perfil_id == 1)
-<!--para el metodo eliminar necesito de un formulario para ejecutarlo-->
- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDelete-{{ $cliente->id }}"><i class="fa fa-trash-o"></i></button>
-@endif
-
-
-</td>
 
   </tbody>
-  @endif
+
   @endforeach
   </table>
 
   <!--para renderizar la paginacion-->
-  {!! $clientes->render() !!}
-  
+ 
                     </div>
                 </div>
             </div>
@@ -151,14 +133,7 @@
         </div>
     </div>
 
-<!--modal editar cliente-->
- @include('admin.cliente.modal.modal-edit-cliente')
-<!--modal eliminar cliente-->
- @include('admin.cliente.modal.modal-delete-cliente')
- <!--modal crear cliente-->
- @include('admin.cliente.modal.modal-crear-cliente')
- <!--modal Precios-->
- @include('admin.cliente.modal.modal-precios')
+
 
 
 

@@ -20,6 +20,11 @@ return array(
 	'Jesus Gomez'	=> 'Jesus Gomez',
 	],
 
+	'generarFacturaSemanal'=>[
+	'1'	=> 'Generar x 1',
+	'4'	=> 'Generar x 4',
+	],
+
 
 'provincia'=>[
 	null	=> 'selecione una Provincia',

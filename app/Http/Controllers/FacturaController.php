@@ -102,8 +102,7 @@ class FacturaController extends Controller
         //dd($facturas);
         $cliente = Cliente::find($id);
         $precios = Precio::first();
-
-
+       
         $lunes =0;
         $martes = 0;
         $miercoles = 0;
@@ -161,10 +160,109 @@ class FacturaController extends Controller
         /*-----------------SEMANALES-----------------*/
         if ($cliente->tipo == "semanal") {
             $total = $lunes + $martes + $miercoles + $jueves + $viernes + $sabado + $domingo;
+                if (!empty($request['recargo'])) {
+                    $total = $total + $request['recargo'];
+                }
+             
             $diarioTotal = $cantLunes + $cantMartes + $cantMiercoles + $cantJueves + $cantViernes + $cantSabado + $cantDomingo;
             $desde =  Carbon::parse($request['desde']);
             //le sumo 6 dias a mi fecha de incio de la facturacion (facturacion mensual)
             $hasta = $desde->addDay(6);
+
+
+            //generamos X 1 las facturas
+            if ($request['generar'] == 1) {
+            $desde =  Carbon::parse($request['desde']);
+            //le sumo 6 dias a mi fecha de incio de la facturacion (facturacion mensual)
+            $hasta = Carbon::parse($request['desde'])->addDay(6);
+
+                //factura x1
+                    $factura =   Factura::create([
+                    'cliente_id' =>$id,
+                    'desde' =>$desde->toDateString(),
+                    'hasta'=>$hasta->toDateString(),
+                    'pago_tipo'=>$request['pago_tipo'],
+                    'comentario' =>$request['comentario'],
+                    'cantidad'=>$diarioTotal,
+                    'total' =>$total,
+                    'status' =>"pendiente",
+                    ]);  
+
+                    Alert::success('Mensaje existoso', 'Factura Multiples Creado Correctamente');
+                return Redirect::back();
+                }
+
+
+
+            //generamos X 4 las facturas
+            if ($request['generar'] == 4) {
+                $desde =  Carbon::parse($request['desde']);
+                $hasta = Carbon::parse($request['desde'])->addDay(6);
+             
+                $desde2 = Carbon::parse($request['desde'])->addDay(7);
+                $hasta2 = Carbon::parse($request['desde'])->addDay(13);
+
+                $desde3 = Carbon::parse($request['desde'])->addDay(14);
+                $hasta3 = Carbon::parse($request['desde'])->addDay(20);
+
+                $desde4 = Carbon::parse($request['desde'])->addDay(21);
+                $hasta4 = Carbon::parse($request['desde'])->addDay(27);
+                
+               
+            
+                    //factura x1
+                    $factura =   Factura::create([
+                    'cliente_id' =>$id,
+                    'desde' =>$desde->toDateString(),
+                    'hasta'=>$hasta->toDateString(),
+                    'pago_tipo'=>$request['pago_tipo'],
+                    'comentario' =>$request['comentario'],
+                    'cantidad'=>$diarioTotal,
+                    'total' =>$total,
+                    'status' =>"pendiente",
+                    ]);  
+
+
+                    //factura x2
+                    $factura =   Factura::create([
+                    'cliente_id' =>$id,
+                    'desde' =>$desde2->toDateString(),
+                    'hasta'=>$hasta2->toDateString(),
+                    'pago_tipo'=>$request['pago_tipo'],
+                    'comentario' =>$request['comentario'],
+                    'cantidad'=>$diarioTotal,
+                    'total' =>$total,
+                    'status' =>"pendiente",
+                    ]); 
+
+                    //factura x3
+                    $factura =   Factura::create([
+                    'cliente_id' =>$id,
+                    'desde' =>$desde3->toDateString(),
+                    'hasta'=>$hasta3->toDateString(),
+                    'pago_tipo'=>$request['pago_tipo'],
+                    'comentario' =>$request['comentario'],
+                    'cantidad'=>$diarioTotal,
+                    'total' =>$total,
+                    'status' =>"pendiente",
+                    ]); 
+
+                    //factura x4
+                    $factura =   Factura::create([
+                    'cliente_id' =>$id,
+                    'desde' =>$desde4->toDateString(),
+                    'hasta'=>$hasta4->toDateString(),
+                    'pago_tipo'=>$request['pago_tipo'],
+                    'comentario' =>$request['comentario'],
+                    'cantidad'=>$diarioTotal,
+                    'total' =>$total,
+                    'status' =>"pendiente",
+                    ]);  
+
+                
+                 Alert::success('Mensaje existoso', 'Factura Multiples Creado Correctamente');
+                return Redirect::back();
+                }
             
         }
 
@@ -227,7 +325,10 @@ class FacturaController extends Controller
             $total = ($lunes*$fecha[0]) + ($martes*$fecha[1]) + ($miercoles*$fecha[2]) + ($jueves*$fecha[3]) + ($viernes*$fecha[4]) + ($sabado*$fecha[5]) + ($domingo*$fecha[6]);
             $diarioTotal = ($cantLunes*$fecha[0]) + ($cantMartes*$fecha[1]) + ($cantMiercoles*$fecha[2]) + ($cantJueves*$fecha[3]) + ($cantViernes*$fecha[4]) + ($cantSabado*$fecha[5]) + ($cantDomingo*$fecha[6]);
             
-         
+            //agrega el recargo
+            if (!empty($request['recargo'])) {
+                    $total = $total + $request['recargo'];
+                }
            
             
         }

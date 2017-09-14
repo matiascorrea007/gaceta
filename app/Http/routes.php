@@ -55,6 +55,7 @@ Route::get('backup', 'BackupController@index');
 Route::get('cliente','ClienteController@index');
 Route::get('cliente-mensuales','ClienteController@mensuales');
 Route::get('cliente-quincenales','ClienteController@quincenales');
+Route::get('clientes-all','ClienteController@clientesAll');
 Route::get('cliente-create','ClienteController@create');
 Route::post('cliente-store','ClienteController@store');
 Route::put('cliente-update/{id}','ClienteController@update');

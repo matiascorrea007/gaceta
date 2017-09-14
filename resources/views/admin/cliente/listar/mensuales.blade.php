@@ -40,6 +40,7 @@
   <li ><a href="{{ url('cliente') }}">Clientes Semanales </a></li>
   <li><a href="{{ url('cliente-quincenales') }}">Clientes Quincenales</a></li>
   <li class="active"><a href="{{ url('cliente-mensuales') }}">Clientes Mensuales ({{$count}})</a></li>
+  <li><a href="{{ url('clientes-all') }}">Todos los Clientes</a></li>
 </ul>
 </div>
 

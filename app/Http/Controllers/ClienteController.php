@@ -152,6 +152,43 @@ class ClienteController extends Controller
     }
 
 
+public function clientesAll(Request $request)
+    {
+
+        $reparto=Reparto::lists('nombre','id');
+
+
+        $clientes=cliente::all();
+        //lo que ingresamos en el buscador lo alamacenamos en $usu_nombre
+        $nombre=$request->input('nombr');
+        
+        
+
+        //preguntamos que si ($usu_nombre no es vacio
+        if (!empty($nombre)) {
+            //entonces me busque de usu_nombre a el nombre que le pasamos atraves de $usu_nombre
+           $clientes->where(DB::raw("CONCAT(nombre,'',apellido)"),'LIKE','%'.$nombre.'%');
+        }   
+
+        //busqueda por email
+        $direccion=$request->input('direcc');
+        if (!empty($direccion)) {
+            //entonces me busque de usu_nombre a el nombre que le pasamos atraves de $usu_nombre
+            $clientes->where('direccion','LIKE','%'.$direccion.'%');
+        }
+
+        //realizamos la paginacion
+         // $clientes = $clientes->paginate(1000);
+
+
+        $link = "clientes";
+        $count = cliente::count();
+        $precios = Precio::first();
+
+
+        return view('admin.cliente.listar.all',compact('link','clientes','count','precios','reparto'));
+    }
+
 
 
 

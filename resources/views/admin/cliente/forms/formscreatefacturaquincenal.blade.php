@@ -26,5 +26,24 @@
 </div>
 
 </div>
+
+<div class="row">
+
+<div class="form-group col-xs-12 col-sm-12 col-md-4">
+</div>
+
+<div class="form-group col-xs-12 col-sm-12 col-md-4">
+            <div class="input-group input-icon right ">
+            <span class="input-group-addon"><i class="fa fa-money font-blue"></i></span>
+                  <input class="form-control " type="text"  name="recargo" size="12" value="" placeholder="Ingrese un valor de Recargo"  >
+            </div>
+        </div>
+
+<div class="form-group col-xs-12 col-sm-12 col-md-4">
+</div>
+
+</div>
+
+
 </div>
 </div>
