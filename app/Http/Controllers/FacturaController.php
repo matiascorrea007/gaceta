@@ -59,17 +59,11 @@ class FacturaController extends Controller
         $facturas = $facturas->paginate(50);
         /*buscador*/
 
-       //dd($facturas);
-
-
         
-
         //me compara todas las facturas con la fecha del updated_at en los intervalos que le pase
        //$facturas = Factura::where('status','=','pagado')->whereBetween('updated_at',array($fecha_desde,$fecha_hasta))->get();
 
 
-
-         //$facturas = $facturas;
 
 
         
@@ -474,23 +468,482 @@ class FacturaController extends Controller
 
 
     public function todasLasFacturas(){
-        $facturas = Factura::orderBy('desde','asc')->get();
+        $facturas = Factura::orderBy('desde','des');
+        $facturas = $facturas->paginate(100);
         $count = Factura::all()->count();
         return view('admin.facturas.index',compact('facturas','count'));
      }
 
       public function facturasPagadas(){
-        $facturas = Factura::where('status','=','pagado')->orderBy('desde','asc')->get();
+        $facturas = Factura::where('status','=','pagado')->orderBy('desde','des');
+        $facturas = $facturas->paginate(100);
         $count = Factura::where('status','=','pagado')->count();
         return view('admin.facturas.listar.pagadas',compact('facturas','count'));
      }
 
 
       public function facturasPendientes(){
-        $facturas = Factura::where('status','=','pendiente')->orderBy('desde','asc')->get();
+        $facturas = Factura::where('status','=','pendiente')->orderBy('desde','des');
+        $facturas = $facturas->paginate(100);
         $count = Factura::where('status','=','pendiente')->count();
         return view('admin.facturas.listar.pendientes',compact('facturas','count'));
      }
+
+
+
+
+
+
+
+
+
+
+    public function facturasMasivas(Request $request){
+       
+
+         /*-----------------SEMANALES-----------------*/
+          if ($request['generar'] == "semanales") {
+
+            $clientes = Cliente::where('tipo','=','semanal')->get();
+            $precios = Precio::first();
+
+            foreach ($clientes as $cliente) {
+
+
+            $lunes =0;
+            $martes = 0;
+            $miercoles = 0;
+            $jueves = 0;
+            $viernes = 0;
+            $sabado = 0;
+            $domingo = 0;
+
+            $cantLunes = 0;
+            $cantMartes = 0;
+            $cantMiercoles = 0;
+            $cantJueves = 0;
+            $cantViernes = 0;
+            $cantSabado = 0;
+            $cantDomingo = 0;   
+
+            //si mi cliente tiene el dias lunes para reparto que me traiga el precio del lunes de la gaceta
+        if ($cliente->lunes == 1) {
+            $lunes = $precios->lunes;
+            $cantLunes = 1;
+        }
+
+        if ($cliente->martes == 1) {
+            $martes = $precios->martes;
+            $cantMartes = 1;
+        }
+
+        if ($cliente->miercoles == 1) {
+            $miercoles = $precios->miercoles;
+            $cantMiercoles = 1;
+        }
+
+        if ($cliente->jueves == 1) {
+            $jueves = $precios->jueves;
+            $cantJueves = 1;
+        }
+
+        if ($cliente->viernes == 1) {
+            $viernes = $precios->viernes;
+            $cantViernes = 1;
+        }
+
+        if ($cliente->sabado == 1) {
+            $sabado = $precios->sabado;
+            $cantSabado = 1;
+        }
+        if ($cliente->domingo == 1) {
+            $domingo = $precios->domingo;
+            $cantDomingo = 1;
+        }
+        
+
+            $desde =  Carbon::parse($request['desde']);
+            $hasta =  Carbon::parse($request['hasta']);
+            //le sumamos un dia ya que me toma un dia de menos
+            $hasta=$hasta->addDay();
+
+            //array de todos los dias , la posicion 0 es el lunes , la 1 es el martes y asi ...
+            $fecha=[0,0,0,0,0,0,0];
+        
+            $actual=$desde->copy();
+
+            //al hacer $actual->addDay(); sumo los dias para que cuando llegue con el dia actual no aiga diferencia
+            //por lo tanto no sera mayor que cero y termina el bucle
+            while ($actual->diffInDays($hasta)>0){
+                //$actual->dayOfWeek me devuelve el dia de la semana
+                
+
+                if($actual->dayOfWeek == Carbon::MONDAY ){
+                      $fecha[0] = $fecha[0]+1;  
+                }
+
+                if($actual->dayOfWeek == Carbon::TUESDAY ){
+                      $fecha[1] = $fecha[1]+1;  
+                }
+
+                if($actual->dayOfWeek == Carbon::WEDNESDAY ){
+                      $fecha[2] = $fecha[2]+1;  
+                }
+                if($actual->dayOfWeek == Carbon::THURSDAY ){
+                      $fecha[3] = $fecha[3]+1;  
+                }
+                if($actual->dayOfWeek == Carbon::FRIDAY ){
+                      $fecha[4] = $fecha[4]+1;  
+                }
+                if($actual->dayOfWeek == Carbon::SATURDAY ){
+                      $fecha[5] = $fecha[5]+1;  
+                }
+                if($actual->dayOfWeek == Carbon::SUNDAY ){
+                      $fecha[6] = $fecha[6]+1;  
+                }
+                   
+                
+                //esto es para terminar el while , al llegar a ser igual q cero termina
+                $actual->addDay();
+                }
+
+                //restamos de nuevo el dia
+                $hasta=$hasta->addDay(-1);
+                
+       
+            //multiplco los dias por la cantidad de ese dia
+            $total = ($lunes*$fecha[0]) + ($martes*$fecha[1]) + ($miercoles*$fecha[2]) + ($jueves*$fecha[3]) + ($viernes*$fecha[4]) + ($sabado*$fecha[5]) + ($domingo*$fecha[6]);
+            $diarioTotal = ($cantLunes*$fecha[0]) + ($cantMartes*$fecha[1]) + ($cantMiercoles*$fecha[2]) + ($cantJueves*$fecha[3]) + ($cantViernes*$fecha[4]) + ($cantSabado*$fecha[5]) + ($cantDomingo*$fecha[6]);
+            
+
+             $factura =   Factura::create([
+            'cliente_id' =>$cliente->id,
+            'desde' =>$request['desde'],
+            'hasta'=>$hasta->toDateString(),
+            'pago_tipo'=>$request['pago_tipo'],
+            'comentario' =>$request['comentario'],
+            'cantidad'=>$diarioTotal,
+            'total' =>$total,
+            'status' =>"pendiente",
+            ]);
+        }
+
+
+
+             Alert::success('Mensaje existoso', 'Factura Creado Correctamente');
+            return Redirect::back();
+
+         }/*end foreach*/
+
+        /*-----------------SEMANALES-----------------*/
+       
+           
+       
+
+
+        
+
+
+
+
+
+
+
+
+
+
+        /*-----------------MENSUALES-----------------*/
+
+        if ($request['generar'] == "mensuales") {
+
+            $clientes = Cliente::where('tipo','=','mensuales')->get();
+            $precios = Precio::first();
+
+            foreach ($clientes as $cliente) {
+
+
+            $lunes =0;
+            $martes = 0;
+            $miercoles = 0;
+            $jueves = 0;
+            $viernes = 0;
+            $sabado = 0;
+            $domingo = 0;
+
+            $cantLunes = 0;
+            $cantMartes = 0;
+            $cantMiercoles = 0;
+            $cantJueves = 0;
+            $cantViernes = 0;
+            $cantSabado = 0;
+            $cantDomingo = 0;   
+
+            //si mi cliente tiene el dias lunes para reparto que me traiga el precio del lunes de la gaceta
+        if ($cliente->lunes == 1) {
+            $lunes = $precios->lunes;
+            $cantLunes = 1;
+        }
+
+        if ($cliente->martes == 1) {
+            $martes = $precios->martes;
+            $cantMartes = 1;
+        }
+
+        if ($cliente->miercoles == 1) {
+            $miercoles = $precios->miercoles;
+            $cantMiercoles = 1;
+        }
+
+        if ($cliente->jueves == 1) {
+            $jueves = $precios->jueves;
+            $cantJueves = 1;
+        }
+
+        if ($cliente->viernes == 1) {
+            $viernes = $precios->viernes;
+            $cantViernes = 1;
+        }
+
+        if ($cliente->sabado == 1) {
+            $sabado = $precios->sabado;
+            $cantSabado = 1;
+        }
+        if ($cliente->domingo == 1) {
+            $domingo = $precios->domingo;
+            $cantDomingo = 1;
+        }
+        
+
+            $desde =  Carbon::parse($request['desde']);
+            $hasta =  Carbon::parse($request['hasta']);
+            //le sumamos un dia ya que me toma un dia de menos
+            $hasta=$hasta->addDay();
+
+            //array de todos los dias , la posicion 0 es el lunes , la 1 es el martes y asi ...
+            $fecha=[0,0,0,0,0,0,0];
+        
+            $actual=$desde->copy();
+
+            //al hacer $actual->addDay(); sumo los dias para que cuando llegue con el dia actual no aiga diferencia
+            //por lo tanto no sera mayor que cero y termina el bucle
+            while ($actual->diffInDays($hasta)>0){
+                //$actual->dayOfWeek me devuelve el dia de la semana
+                
+
+                if($actual->dayOfWeek == Carbon::MONDAY ){
+                      $fecha[0] = $fecha[0]+1;  
+                }
+
+                if($actual->dayOfWeek == Carbon::TUESDAY ){
+                      $fecha[1] = $fecha[1]+1;  
+                }
+
+                if($actual->dayOfWeek == Carbon::WEDNESDAY ){
+                      $fecha[2] = $fecha[2]+1;  
+                }
+                if($actual->dayOfWeek == Carbon::THURSDAY ){
+                      $fecha[3] = $fecha[3]+1;  
+                }
+                if($actual->dayOfWeek == Carbon::FRIDAY ){
+                      $fecha[4] = $fecha[4]+1;  
+                }
+                if($actual->dayOfWeek == Carbon::SATURDAY ){
+                      $fecha[5] = $fecha[5]+1;  
+                }
+                if($actual->dayOfWeek == Carbon::SUNDAY ){
+                      $fecha[6] = $fecha[6]+1;  
+                }
+                   
+                
+                //esto es para terminar el while , al llegar a ser igual q cero termina
+                $actual->addDay();
+                }
+
+                //restamos de nuevo el dia
+                $hasta=$hasta->addDay(-1);
+                
+       
+            //multiplco los dias por la cantidad de ese dia
+            $total = ($lunes*$fecha[0]) + ($martes*$fecha[1]) + ($miercoles*$fecha[2]) + ($jueves*$fecha[3]) + ($viernes*$fecha[4]) + ($sabado*$fecha[5]) + ($domingo*$fecha[6]);
+            $diarioTotal = ($cantLunes*$fecha[0]) + ($cantMartes*$fecha[1]) + ($cantMiercoles*$fecha[2]) + ($cantJueves*$fecha[3]) + ($cantViernes*$fecha[4]) + ($cantSabado*$fecha[5]) + ($cantDomingo*$fecha[6]);
+            
+
+             $factura =   Factura::create([
+            'cliente_id' =>$cliente->id,
+            'desde' =>$request['desde'],
+            'hasta'=>$hasta->toDateString(),
+            'pago_tipo'=>$request['pago_tipo'],
+            'comentario' =>$request['comentario'],
+            'cantidad'=>$diarioTotal,
+            'total' =>$total,
+            'status' =>"pendiente",
+            ]);
+        }
+
+
+
+             Alert::success('Mensaje existoso', 'Factura Creado Correctamente');
+            return Redirect::back();
+
+         }/*end foreach*/
+
+         /*-----------------MENSUALES-----------------*/
+
+
+
+
+
+
+
+
+
+
+
+         /*-----------------QUINCENALES-----------------*/
+
+        if ($request['generar'] == "quincenales") {
+
+            $clientes = Cliente::where('tipo','=','quincenales')->get();
+            $precios = Precio::first();
+
+            foreach ($clientes as $cliente) {
+
+
+            $lunes =0;
+            $martes = 0;
+            $miercoles = 0;
+            $jueves = 0;
+            $viernes = 0;
+            $sabado = 0;
+            $domingo = 0;
+
+            $cantLunes = 0;
+            $cantMartes = 0;
+            $cantMiercoles = 0;
+            $cantJueves = 0;
+            $cantViernes = 0;
+            $cantSabado = 0;
+            $cantDomingo = 0;   
+
+            //si mi cliente tiene el dias lunes para reparto que me traiga el precio del lunes de la gaceta
+        if ($cliente->lunes == 1) {
+            $lunes = $precios->lunes;
+            $cantLunes = 1;
+        }
+
+        if ($cliente->martes == 1) {
+            $martes = $precios->martes;
+            $cantMartes = 1;
+        }
+
+        if ($cliente->miercoles == 1) {
+            $miercoles = $precios->miercoles;
+            $cantMiercoles = 1;
+        }
+
+        if ($cliente->jueves == 1) {
+            $jueves = $precios->jueves;
+            $cantJueves = 1;
+        }
+
+        if ($cliente->viernes == 1) {
+            $viernes = $precios->viernes;
+            $cantViernes = 1;
+        }
+
+        if ($cliente->sabado == 1) {
+            $sabado = $precios->sabado;
+            $cantSabado = 1;
+        }
+        if ($cliente->domingo == 1) {
+            $domingo = $precios->domingo;
+            $cantDomingo = 1;
+        }
+        
+
+            $desde =  Carbon::parse($request['desde']);
+            $hasta =  Carbon::parse($request['hasta']);
+            //le sumamos un dia ya que me toma un dia de menos
+            $hasta=$hasta->addDay();
+
+            //array de todos los dias , la posicion 0 es el lunes , la 1 es el martes y asi ...
+            $fecha=[0,0,0,0,0,0,0];
+        
+            $actual=$desde->copy();
+
+            //al hacer $actual->addDay(); sumo los dias para que cuando llegue con el dia actual no aiga diferencia
+            //por lo tanto no sera mayor que cero y termina el bucle
+            while ($actual->diffInDays($hasta)>0){
+                //$actual->dayOfWeek me devuelve el dia de la semana
+                
+
+                if($actual->dayOfWeek == Carbon::MONDAY ){
+                      $fecha[0] = $fecha[0]+1;  
+                }
+
+                if($actual->dayOfWeek == Carbon::TUESDAY ){
+                      $fecha[1] = $fecha[1]+1;  
+                }
+
+                if($actual->dayOfWeek == Carbon::WEDNESDAY ){
+                      $fecha[2] = $fecha[2]+1;  
+                }
+                if($actual->dayOfWeek == Carbon::THURSDAY ){
+                      $fecha[3] = $fecha[3]+1;  
+                }
+                if($actual->dayOfWeek == Carbon::FRIDAY ){
+                      $fecha[4] = $fecha[4]+1;  
+                }
+                if($actual->dayOfWeek == Carbon::SATURDAY ){
+                      $fecha[5] = $fecha[5]+1;  
+                }
+                if($actual->dayOfWeek == Carbon::SUNDAY ){
+                      $fecha[6] = $fecha[6]+1;  
+                }
+                   
+                
+                //esto es para terminar el while , al llegar a ser igual q cero termina
+                $actual->addDay();
+                }
+
+                //restamos de nuevo el dia
+                $hasta=$hasta->addDay(-1);
+                
+       
+            //multiplco los dias por la cantidad de ese dia
+            $total = ($lunes*$fecha[0]) + ($martes*$fecha[1]) + ($miercoles*$fecha[2]) + ($jueves*$fecha[3]) + ($viernes*$fecha[4]) + ($sabado*$fecha[5]) + ($domingo*$fecha[6]);
+            $diarioTotal = ($cantLunes*$fecha[0]) + ($cantMartes*$fecha[1]) + ($cantMiercoles*$fecha[2]) + ($cantJueves*$fecha[3]) + ($cantViernes*$fecha[4]) + ($cantSabado*$fecha[5]) + ($cantDomingo*$fecha[6]);
+            
+
+             $factura =   Factura::create([
+            'cliente_id' =>$cliente->id,
+            'desde' =>$request['desde'],
+            'hasta'=>$hasta->toDateString(),
+            'pago_tipo'=>$request['pago_tipo'],
+            'comentario' =>$request['comentario'],
+            'cantidad'=>$diarioTotal,
+            'total' =>$total,
+            'status' =>"pendiente",
+            ]);
+        }
+
+
+
+             Alert::success('Mensaje existoso', 'Factura Creado Correctamente');
+            return Redirect::back();
+
+         }/*end foreach*/
+
+         /*-----------------QUINCENALES-----------------*/
+
+        
+
+     }/*END FUNCION facturasMasivas*/
+
+
+
+
+
 
 
 

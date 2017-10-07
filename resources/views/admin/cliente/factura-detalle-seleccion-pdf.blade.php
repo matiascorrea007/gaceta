@@ -721,26 +721,8 @@
                         
                       </td>
                     </tr>
-                    <tr id="TR_37">
-                      <th id="TH_38">
-                        
-                      </th>
-                      <td id="TD_39">
-                      </td>
-                      <td id="TD_40">
-                        
-                      </td>
-                    </tr>
-                    <tr id="TR_41">
-                      <th id="TH_42">
-                        
-                      </th>
-                      <td id="TD_43">
-                      </td>
-                      <td id="TD_44">
-                        
-                      </td>
-                    </tr>
+              
+               
                     <tr id="TR_45">
                       <th id="TH_46">
                         <span id="SPAN_47">Total</span>
@@ -766,7 +748,7 @@
       </form>
     </div>
   </div>
-</div><br><br>
+</div>
 @endforeach
 
 </body>

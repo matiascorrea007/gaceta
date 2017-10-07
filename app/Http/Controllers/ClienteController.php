@@ -48,6 +48,7 @@ class ClienteController extends Controller
         if (!empty($nombre)) {
             //entonces me busque de usu_nombre a el nombre que le pasamos atraves de $usu_nombre
            $clientes->where(DB::raw("CONCAT(nombre,'',apellido)"),'LIKE','%'.$nombre.'%')->get();
+
         }   
 
         //busqueda por email
@@ -73,6 +74,13 @@ class ClienteController extends Controller
       // dd($clientee->created_at->addweeks(1));
         return view('admin.cliente.index',compact('link','clientes','count','precios','reparto'));
     }
+
+
+
+
+
+
+
 
     
 
@@ -158,28 +166,33 @@ public function clientesAll(Request $request)
         $reparto=Reparto::lists('nombre','id');
 
 
-        $clientes=cliente::all();
+        $clientes=Cliente::orderBy('direccion','asc');
+        //$clientes =  DB::table('clientes')->get();
         //lo que ingresamos en el buscador lo alamacenamos en $usu_nombre
         $nombre=$request->input('nombr');
         
-        
+    
+   
 
         //preguntamos que si ($usu_nombre no es vacio
         if (!empty($nombre)) {
             //entonces me busque de usu_nombre a el nombre que le pasamos atraves de $usu_nombre
-           $clientes->where(DB::raw("CONCAT(nombre,'',apellido)"),'LIKE','%'.$nombre.'%');
+           $clientes->where(DB::raw("CONCAT(nombre,'',apellido)"),'LIKE','%'.$nombre.'%')->get();
+           
         }   
+
+
 
         //busqueda por email
         $direccion=$request->input('direcc');
         if (!empty($direccion)) {
             //entonces me busque de usu_nombre a el nombre que le pasamos atraves de $usu_nombre
-            $clientes->where('direccion','LIKE','%'.$direccion.'%');
+            $clientes->where('direccion','LIKE','%'.$direccion.'%')->get();
         }
 
         //realizamos la paginacion
          // $clientes = $clientes->paginate(1000);
-
+        $clientes = $clientes->paginate(1000);
 
         $link = "clientes";
         $count = cliente::count();

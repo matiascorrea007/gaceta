@@ -46,7 +46,7 @@
 
 
 <!--buscador-->
-{!!Form::open(['url'=>'cliente-mensuales', 'method'=>'GET' , 'class'=>'navbar-form navbar-left' , 'role'=>'Search'])!!}
+{!!Form::open(['url'=>'clientes-all', 'method'=>'GET' , 'class'=>'navbar-form navbar-left' , 'role'=>'Search'])!!}
 <div class="form-group">
   {!!Form::label('')!!}
   {!!Form::text('nombr',null,['class'=>'form-control','placeholder'=>'Nombre'])!!}

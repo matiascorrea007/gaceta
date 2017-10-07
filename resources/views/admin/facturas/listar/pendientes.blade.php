@@ -46,29 +46,46 @@
 
 
 
-<!--
+
     <div class="actions">
        <div class="btn-group btn-group-devided" >
+          
+       
+          {!!Form::open(['url'=>'factura-detalleseleccion-pdf/1', 'method'=>'POST' , 'class'=>'' , 'role'=>'Search'])!!}
 
-          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#crear-factura">Generar Facturas<i class="fa fa-plus fa-lg"></i></button>
+       
+                <!--  <label class="mt-checkbox">
+                  <input type="checkbox" onclick="marcar(this);">Seleccionar / Deseleccionar
+                  <span></span>
+                  </label>-->
+      
+
+           <button type="submit" class="btn btn-danger" >Imprimir Seleccion<i class="fa fa fa-file-pdf-o"></i></button>
+            
+              
+           <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#status-masivo">Cambiar estado<i class="fa fa fa-file-pdf-o"></i></button>
+
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#facturas-masivas"><i class="fa fa-file-pdf-o fa-lg"></i> Generar Facturas Masivas</button>
   		
        </div>
    </div>
--->
 
         </div><!--portlet-title-->
+
+
     <div class="portlet-body">
         <div class="table-scrollable">
             <table id="example2" class="table table-hover table-light">
 	<thead>
 		
 		<th>#</th>
+    <th>selec</th>
     <th>nombre</th>
     <th>apellido</th>
     <th>direccion</th>
     <th>N* depto</th>
-		<th>Desde</th>
-		<th>hasta</th>
+		<th class="col-md-4">Desde</th>
+		<th class="col-md-4">hasta</th>
     <th>Cantidad a entregar</th>
 		<th>Total</th>
 		<th>Estado</th>
@@ -76,17 +93,32 @@
 
 		<th class="col-md-4">Operaciones</th>
 	</thead>
+
 	@foreach($facturas as $factura)
-	 
 	<tbody>
 	<!-- -->
+
+
 	<td>{{ $factura -> id}}</td>
-  <td>{{$factura ->cliente-> nombre}}</td>
+
+  <td>
+  <div class="md-checkbox-list">
+    <div class="mt-checkbox-list ">
+        <label class="mt-checkbox">
+        <input type="checkbox" value="{{$factura->id}}" id="checkbox1"  name="check{{$factura->id}}">
+          <span></span>
+        </label>
+    </div>
+</div>
+</td>
+
+
+  <td>{{ $factura ->cliente-> nombre}}</td>
   <td>{{ $factura ->cliente-> apellido}}</td>
   <td>{{ $factura ->cliente-> direccion}}</td>
   <td>{{ $factura ->cliente-> departamento}}</td>
-	<td>{{ $factura -> desde}}</td>
-	<td>{{ $factura -> hasta}}</td>
+  <td>{{ $factura->desde->format('d-m-y')}}</td>
+  <td>{{ $factura->hasta->format('d-m-y')}} </td>
   <td>{{ $factura -> cantidad}}</td>
 	<td>${{ $factura -> total}}</td>
 
@@ -121,8 +153,12 @@
 
 	@endforeach
 	</table>
+
+
                     </div>
                 </div>
+                    {!!Form::close()!!}
+
             </div>
             <!-- END SAMPLE TABLE PORTLET-->
         </div>
@@ -135,9 +171,12 @@
 @include('admin.cliente.modal.modal-delete-factura')
  <!--modal status factura-->
 @include('admin.cliente.modal.modal-status')
+ <!--modal facturas masivas-->
+@include('admin.facturas.modal.facturas-masivas')
                           
 
-
+<!--para renderizar la paginacion-->
+  {!! $facturas->render() !!}
 
 
 @section('scriptdatepicker')
@@ -146,16 +185,48 @@
 <script>
   $(function () {
     //Date picker
-    $('#datepicker').datepicker({
+    $('#desde2').datepicker({
       autoclose: true  
     });
-     $('#datepicker2').datepicker({
+     $('#hasta').datepicker({
       autoclose: true
     });
      $('#desde').datepicker({
       autoclose: true  
     });
+     $('#datepicker1').datepicker({
+      autoclose: true  
+    });
+     $('#datepicker2').datepicker({
+      autoclose: true  
+    });
+     $('#datepicker3').datepicker({
+      autoclose: true  
+    });
+     $('#datepicker4').datepicker({
+      autoclose: true  
+    });
   });
 </script>
+
+
+<script type="text/javascript">
+  function marcar(source) 
+  {
+    checkboxes=document.getElementsByTagName('input'); //obtenemos todos los controles del tipo Input
+    for(i=0;i<checkboxes.length;i++) //recoremos todos los controles
+    {
+      if(checkboxes[i].type == "checkbox") //solo si es un checkbox entramos
+      {
+        checkboxes[i].checked=source.checked; //si es un checkbox le damos el valor del checkbox que lo llamó (Marcar/Desmarcar Todos)
+      }
+    }
+  }
+</script>
+
+
 @stop
+
+
+
 @endsection

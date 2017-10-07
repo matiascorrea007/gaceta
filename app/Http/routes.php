@@ -70,10 +70,11 @@ Route::delete('factura-destroy/{id}','FacturaController@destroy');
 Route::get('factura-detalle-pdf/{tipo}/{id}','FacturaController@detalleFacturaPdf');
 Route::post('factura-detalleseleccion-pdf/{tipo}','FacturaController@detalleSeleccionFacturaPdf');
 
+
 Route::get('todas-las-facturas','FacturaController@todasLasFacturas');
 Route::get('facturas-pagadas','FacturaController@facturasPagadas');
 Route::get('facturas-pendientes','FacturaController@facturasPendientes');
-
+Route::post('facturas-masivas','FacturaController@FacturasMasivas');
 
 Route::get('precio','PrecioController@index');
 Route::get('precio-ver-{id}','PrecioController@ver');

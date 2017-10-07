@@ -25,6 +25,12 @@ return array(
 	'4'	=> 'Generar x 4',
 	],
 
+	'generarFacturaMasivas'=>[
+	'semanales'	=> 'Semanales',
+	'quincenales'	=> 'Quincenales',
+	'mensuales'	=> 'Mensuales',
+	],
+
 
 'provincia'=>[
 	null	=> 'selecione una Provincia',

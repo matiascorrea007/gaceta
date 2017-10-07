@@ -122,8 +122,8 @@
   </td>
 
 
-	<td>{{ $factura -> desde}}</td>
-	<td>{{ $factura -> hasta}}</td>
+	<td>{{$factura->desde->format('d-m-y')}}</td>
+  <td>{{$factura->hasta->format('d-m-y')}} </td>
   <td>{{ $factura -> cantidad}}</td>
 	<td>${{ $factura -> total}}</td>
 
